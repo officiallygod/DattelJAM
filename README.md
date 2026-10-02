@@ -1,1 +1,1 @@
-# DattelJAM
+# Dattel JAM
