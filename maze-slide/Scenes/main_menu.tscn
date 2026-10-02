@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dre60h5jwb0qp"]
+
+[ext_resource type="Script" uid="uid://c1ldsk1elwsg6" path="res://Scripts/main_menu.gd" id="1_28flt"]
+
+[sub_resource type="SystemFont" id="SystemFont_xcss6"]
+
+[node name="MainMenu" type="Control" unique_id=673484012]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_28flt")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1975872594]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1060020019]
+layout_mode = 2
+offset_transform_position = Vector2(2, 0)
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1687829093]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = SubResource("SystemFont_xcss6")
+theme_override_font_sizes/font_size = 18
+text = "Start Game"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1844490089]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
