@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c2sfkj7l3nlsh"]
+
+[ext_resource type="Script" uid="uid://beqfjwbdfkbef" path="res://maze.gd" id="1_3hls8"]
+[ext_resource type="Script" uid="uid://cxiv181xwkm4d" path="res://player.gd" id="1_hbghi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
+size = Vector2(52, 52)
+
+[node name="Main" type="Node2D" unique_id=1433985532]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=175239047]
+z_index = 10
+position = Vector2(30, 30)
+script = ExtResource("1_hbghi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1053072329]
+shape = SubResource("RectangleShape2D_hbghi")
+
+[node name="Polygon2D" type="Polygon2D" parent="Player" unique_id=534168008]
+
+[node name="Maze" type="Node2D" parent="." unique_id=681290047]
+script = ExtResource("1_3hls8")
