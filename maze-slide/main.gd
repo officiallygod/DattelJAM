@@ -5,7 +5,7 @@ extends Node2D
 # CURRENT LEVEL
 # ==========================================
 
-const LEVEL = preload("res://levels/level_02.gd")
+const LEVEL = preload("res://levels/level_03.gd")
 
 
 # ==========================================

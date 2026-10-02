@@ -1,6 +1,6 @@
 extends Node2D
 
-const WALL_THICKNESS = 2.0
+const WALL_THICKNESS = 8.0
 
 var grid_size: int
 var cell_size: float
