@@ -27,6 +27,8 @@ func _ready():
 
 	player.moved.connect(_on_player_moved)
 	setup_popup_connections()
+	setup_popup_connections2()
+	
 
 
 func center_maze():
@@ -323,6 +325,9 @@ func win():
 
 	print("LEVEL WON!")
 
+	if LevelManager.current_level_index + 1 >= LevelManager.get_level_count():
+		show_game_won_popup()
+		return
 	show_level_won_popup()
 
 
@@ -347,6 +352,9 @@ func reset_level():
 
 	if has_node("GameUI/Controls/LevelWonPopup"):
 		$GameUI/Controls/LevelWonPopup.visible = false
+
+	if has_node("GameUI/Controls/GameWonPopup"):
+		$GameUI/Controls/GameWonPopup.visible = false
 
 
 func show_level_won_popup():
@@ -399,6 +407,31 @@ func _on_next_level_pressed():
 
 	get_tree().reload_current_scene()
 
+func show_game_won_popup():
+	if has_node("GameUI/Controls/WinBackground"):
+		$GameUI/Controls/WinBackground.visible = true
+
+	if has_node("GameUI/Controls/GameWonPopup"):
+		$GameUI/Controls/GameWonPopup.visible = true
+
+func setup_popup_connections2():
+	if not has_node("GameUI/Controls/GameWonPopup"):
+		return
+
+	var popup = $GameUI/Controls/GameWonPopup
+
+
+	if popup.has_node("VBoxContainer/RetryButton"):
+		var retry_button = popup.get_node(
+			"VBoxContainer/RetryButton"
+		)
+
+		if not retry_button.pressed.is_connected(
+			_on_retry_pressed
+		):
+			retry_button.pressed.connect(
+				_on_retry_pressed
+			)
 
 func _on_retry_pressed():
 	reset_level()
