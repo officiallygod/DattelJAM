@@ -48,6 +48,7 @@ func find_enemies():
 
 
 func setup_enemies():
+
 	if "ENEMY_STARTS" in LEVEL:
 		var starts = LEVEL.ENEMY_STARTS
 
@@ -141,9 +142,12 @@ func move_enemies_horizontal(direction: int):
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
-				
-				if has_node("Node2D/AnimationPlayer"):
-					$Node2D/AnimationPlayer.play("enemy_walking")
+				if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
+					$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
+				if has_node("Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2"):
+					$Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2.play("enemy_walking2")
+				if has_node("Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3"):
+					$Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3.play("enemy_walking3")
 
 
 func move_enemies_vertical(direction: int):
@@ -186,9 +190,12 @@ func move_enemies_vertical(direction: int):
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
-				
-				if has_node("Node2D/AnimationPlayer"):
-					$Node2D/AnimationPlayer.play("enemy_walking")
+				if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
+					$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
+				if has_node("Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2"):
+					$Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2.play("enemy_walking2")
+				if has_node("Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3"):
+					$Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3.play("enemy_walking3")
 
 
 func wait_for_all_movement():
@@ -302,7 +309,13 @@ func die():
 	for enemy in enemies:
 		if enemy.visible:
 			enemy.stop_movement()
-
+			
+	if has_node("Maze/Enemy1/EnemyNode/EnemyAnimationPlayer"):
+		$Maze/Enemy1/EnemyNode/EnemyAnimationPlayer.stop()
+	if has_node("Maze/Enemy2/EnemyNode/EnemyAnimationPlayer"):
+		$Maze/Enemy2/EnemyNode/EnemyAnimationPlayer.stop()
+	if has_node("Maze/Enemy3/EnemyNode/EnemyAnimationPlayer"):
+		$Maze/Enemy3/EnemyNode/EnemyAnimationPlayer.stop()
 	print("YOU DIED!")
 
 	await get_tree().create_timer(0.5).timeout
