@@ -7,7 +7,42 @@
 [ext_resource type="Script" uid="uid://cra5vf1x8bmmp" path="res://ui/scripts/escape_to_return.gd" id="4_eaira"]
 [ext_resource type="Script" uid="uid://dd13inhsjv7uo" path="res://ui/scripts/auto_scrolling.gd" id="4_ko2qo"]
 [ext_resource type="Script" uid="uid://dt8qdw2jjjvqk" path="res://addons/simple-gui-transitions/transition.gd" id="5_i743p"]
+[ext_resource type="FontFile" uid="uid://djyo8bpsc6303" path="res://ui/fonts/Sniglet-ExtraBold.ttf" id="5_lmbey"]
+[ext_resource type="FontFile" uid="uid://bvcrukqqyjsqj" path="res://ui/fonts/Sniglet-Regular.ttf" id="6_rdqd8"]
 [ext_resource type="PackedScene" uid="uid://dlym47ojq04o7" path="res://ui/audio/ui_audio_effects_attacher.tscn" id="8_e8svh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3goq"]
+bg_color = Color(0.007843138, 0.14901961, 0.08235294, 1)
+
+[sub_resource type="Shader" id="Shader_am7si"]
+code = "shader_type canvas_item;
+uniform float radius : hint_range(0.0, 1.5) = 0.75;
+uniform float softness : hint_range(0.0, 1.0) = 0.45;
+uniform vec4 vignette_color : source_color = vec4(0.0, 0.0, 0.0, 0.85);
+uniform float pulse_speed : hint_range(0.1, 5.0) = 1.2;
+uniform float pulse_intensity : hint_range(0.0, 0.3) = 0.08;
+
+void fragment() {
+	float dist = distance(UV, vec2(0.5, 0.5));
+	float wave = sin(TIME * pulse_speed);
+	float current_radius = radius + (wave * pulse_intensity);
+	float vignette = smoothstep(current_radius, current_radius + softness, dist);
+	COLOR = vec4(vignette_color.rgb, vignette * vignette_color.a);
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_68pkx"]
+shader = SubResource("Shader_am7si")
+shader_parameter/radius = 0.3010000142975
+shader_parameter/softness = 0.48400002299
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+shader_parameter/pulse_speed = 1.2
+shader_parameter/pulse_intensity = 0.0400000019
 
 [node name="Entry Scene" type="Node2D" unique_id=1898936429]
 
@@ -28,93 +63,112 @@ first_scene_new_game = "uid://c2sfkj7l3nlsh"
 
 [node name="FocusFirst" type="Node" parent="CanvasLayer/MainMenu" unique_id=1115273765 node_paths=PackedStringArray("controls_in_sequence")]
 script = ExtResource("1_ta2ne")
-controls_in_sequence = [NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton"), NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton"), NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LevelsButton"), NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton")]
+controls_in_sequence = [NodePath("../Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton"), NodePath("../Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton"), NodePath("../Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LevelsButton"), NodePath("../Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton")]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MainMenu" unique_id=69293178]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Background" type="PanelContainer" parent="CanvasLayer/MainMenu" unique_id=174323093]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 578.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_h3goq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MainMenu/Background" unique_id=69293178]
+layout_mode = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/HBoxContainer" unique_id=587747971]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/Background/HBoxContainer" unique_id=587747971]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 
-[node name="Game Title Container" type="CenterContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer" unique_id=1711583148]
+[node name="Game Title Container" type="CenterContainer" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer" unique_id=1711583148]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="Game Title" type="RichTextLabel" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/Game Title Container" unique_id=1672170250]
+[node name="Game Title" type="RichTextLabel" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/Game Title Container" unique_id=1672170250]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_type_variation = &"HeadingLabel"
+theme_override_fonts/normal_font = ExtResource("5_lmbey")
 bbcode_enabled = true
 text = "[center]Game Title or Logo"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer" unique_id=877639308]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer" unique_id=877639308]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1359228206]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1359228206]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="LoadGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=352003945 groups=["UIButtons"]]
+[node name="LoadGameButton" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=352003945 groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../QuitButton")
 focus_previous = NodePath("../QuitButton")
 theme = ExtResource("1_coyy4")
+theme_override_fonts/font = ExtResource("6_rdqd8")
 text = "Load Game"
 
-[node name="NewGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=838909136 groups=["UIButtons"]]
+[node name="NewGameButton" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=838909136 groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_coyy4")
+theme_override_fonts/font = ExtResource("6_rdqd8")
 text = "New Game"
 
-[node name="LevelsButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=536804754 groups=["UIButtons"]]
+[node name="LevelsButton" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=536804754 groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_coyy4")
+theme_override_fonts/font = ExtResource("6_rdqd8")
 text = "Levels"
 
-[node name="CreditsButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1863465596 groups=["UIButtons"]]
+[node name="CreditsButton" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1863465596 groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
+theme_override_fonts/font = ExtResource("6_rdqd8")
 text = "Credits"
 
-[node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=406970802 groups=["UIButtons"]]
+[node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=406970802 groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../LoadGameButton")
 focus_next = NodePath("../LoadGameButton")
 theme = ExtResource("1_coyy4")
+theme_override_fonts/font = ExtResource("6_rdqd8")
 text = "Quit Game"
 
-[node name="Bottom Container" type="CenterContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer" unique_id=823853998]
+[node name="Bottom Container" type="CenterContainer" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer" unique_id=823853998]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="Copyrights Text" type="RichTextLabel" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/Bottom Container" unique_id=1602047571]
+[node name="Copyrights Text" type="RichTextLabel" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/Bottom Container" unique_id=1602047571]
 custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
 layout_mode = 2
 theme = ExtResource("1_coyy4")
+theme_override_fonts/normal_font = ExtResource("6_rdqd8")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[center]Copyright 2026 ©️ Dolly in the Maze"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+
+[node name="Vignette" type="ColorRect" parent="CanvasLayer/MainMenu" unique_id=1453767524]
+material = SubResource("ShaderMaterial_68pkx")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
 [node name="LoadGame" type="Control" parent="CanvasLayer" unique_id=1656964966]
 unique_name_in_owner = true
@@ -351,8 +405,8 @@ unique_name_in_owner = true
 script = ExtResource("5_i743p")
 auto_start = 1
 layout = NodePath("../../CanvasLayer/MainMenu")
-controls = Array[NodePath]([NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton"), NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton"), NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton"), NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton")])
-group = NodePath("../../CanvasLayer/MainMenu/HBoxContainer")
+controls = Array[NodePath]([NodePath("../../CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton"), NodePath("../../CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton"), NodePath("../../CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton"), NodePath("../../CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton")])
+group = NodePath("../../CanvasLayer/MainMenu/Background/HBoxContainer")
 
 [node name="TransitionNewGame" type="Node" parent="Transitions" unique_id=1619376924]
 unique_name_in_owner = true
@@ -364,7 +418,7 @@ group = NodePath("../../CanvasLayer/NewGame/HBoxContainer")
 unique_name_in_owner = true
 script = ExtResource("5_i743p")
 layout = NodePath("../../CanvasLayer/LoadGame")
-controls = [NodePath("")]
+controls = Array[NodePath]([NodePath("")])
 group = NodePath("../../CanvasLayer/LoadGame/HBoxContainer")
 
 [node name="TransitionLevelSelect" type="Node" parent="Transitions" unique_id=1361297168]
@@ -381,9 +435,9 @@ script = ExtResource("4_eaira")
 unique_name_in_owner = true
 root_path = NodePath("../CanvasLayer")
 
-[connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton" to="CanvasLayer/MainMenu" method="_on_load_game_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton" to="CanvasLayer/MainMenu" method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LevelsButton" to="CanvasLayer/MainMenu" method="_on_levels_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="CanvasLayer/MainMenu" method="_on_credits_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="CanvasLayer/MainMenu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton" to="CanvasLayer/MainMenu" method="_on_load_game_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton" to="CanvasLayer/MainMenu" method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LevelsButton" to="CanvasLayer/MainMenu" method="_on_levels_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="CanvasLayer/MainMenu" method="_on_credits_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="CanvasLayer/MainMenu" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/LevelSelect/BackButton" to="CanvasLayer/MainMenu" method="_on_back_button_pressed"]
