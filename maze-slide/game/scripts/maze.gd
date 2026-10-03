@@ -1,6 +1,15 @@
 extends Node2D
 
-const WALL_THICKNESS = 3.0
+const WALL_THICKNESS = 15.0
+const WALL_COLLISION_THICKNESS = 2.0
+
+const GRASS_HORIZONTAL = preload(
+	"res://assets/Sprites/grass_wall_horizontal.png"
+)
+
+const GRASS_VERTICAL = preload(
+	"res://assets/Sprites/grass_wall_vertical.png"
+)
 
 var grid_size: int
 var cell_size: float
@@ -72,11 +81,11 @@ func create_wall(start: Vector2, end: Vector2):
 	if start.y == end.y:
 		shape.size = Vector2(
 			length,
-			WALL_THICKNESS
+			WALL_COLLISION_THICKNESS
 		)
 	else:
 		shape.size = Vector2(
-			WALL_THICKNESS,
+			WALL_COLLISION_THICKNESS,
 			length
 		)
 
@@ -88,8 +97,6 @@ func create_wall(start: Vector2, end: Vector2):
 
 
 func _draw():
-
-	# Background
 	draw_rect(
 		Rect2(
 			0,
@@ -97,47 +104,39 @@ func _draw():
 			grid_size * cell_size,
 			grid_size * cell_size
 		),
-		Color("#3d3d3d")
+		Color("#205203")
 	)
 
-
-	# Horizontal walls
 	for row in range(grid_size + 1):
 		for column in range(grid_size):
-
 			if horizontal_walls[row][column] == 1:
-
-				draw_line(
-					Vector2(
-						column * cell_size,
-						row * cell_size
-					),
-					Vector2(
-						(column + 1) * cell_size,
-						row * cell_size
-					),
-					Color.WHITE,
+				var rect = Rect2(
+					column * cell_size,
+					row * cell_size - WALL_THICKNESS / 2.0,
+					cell_size,
 					WALL_THICKNESS
 				)
 
+				draw_texture_rect(
+					GRASS_HORIZONTAL,
+					rect,
+					false
+				)
 
-	# Vertical walls
 	for row in range(grid_size):
 		for column in range(grid_size + 1):
-
 			if vertical_walls[row][column] == 1:
+				var rect = Rect2(
+					column * cell_size - WALL_THICKNESS / 2.0,
+					row * cell_size,
+					WALL_THICKNESS,
+					cell_size
+				)
 
-				draw_line(
-					Vector2(
-						column * cell_size,
-						row * cell_size
-					),
-					Vector2(
-						column * cell_size,
-						(row + 1) * cell_size
-					),
-					Color.WHITE,
-					WALL_THICKNESS
+				draw_texture_rect(
+					GRASS_VERTICAL,
+					rect,
+					false
 				)
 
 

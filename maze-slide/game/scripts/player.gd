@@ -101,7 +101,6 @@ func _physics_process(delta):
 
 
 func stop_movement():
-
 	moving = false
 	target_position = position
 	$Node2D/AnimationPlayer.stop()

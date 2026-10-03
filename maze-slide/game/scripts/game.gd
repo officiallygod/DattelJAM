@@ -195,8 +195,8 @@ func check_player_goal():
 
 
 func player_touches_goal() -> bool:
-	return abs(player.global_position.x - goal.global_position.x) <= 38.0 \
-		and abs(player.global_position.y - goal.global_position.y) <= 38.0
+	return abs(player.global_position.x - goal.global_position.x) <= 5.0 \
+		and abs(player.global_position.y - goal.global_position.y) <= 5.0
 
 
 func any_enemy_touches_goal() -> bool:
@@ -243,6 +243,8 @@ func win():
 			enemy.stop_movement()
 
 	print("LEVEL WON!")
+	await get_tree().create_timer(0.3).timeout
+
 	show_level_won_popup()
 
 

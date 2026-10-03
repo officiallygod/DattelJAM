@@ -85,6 +85,7 @@ visible = false
 
 [node name="Node2D" type="Node2D" parent="Maze/Player" unique_id=1962962697]
 unique_name_in_owner = true
+scale = Vector2(1.5, 1.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Maze/Player/Node2D" unique_id=776783357]
 unique_name_in_owner = true
