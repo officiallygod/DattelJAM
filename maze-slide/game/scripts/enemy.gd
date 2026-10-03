@@ -17,6 +17,14 @@ func setup(start_cell: Vector2i, maze_node):
 	target_position = position
 
 	moving = false
+	
+	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
+		$EnemyNode1/EnemyAnimationPlayer1.stop()
+	if has_node("EnemyNode2/EnemyAnimationPlayer2"):
+		$EnemyNode2/EnemyAnimationPlayer2.stop()
+	if has_node("EnemyNode3/EnemyAnimationPlayer3"):
+		$EnemyNode3/EnemyAnimationPlayer3.stop()
+		
 
 	queue_redraw()
 
@@ -67,7 +75,7 @@ func move_in_direction(
 	target_position = maze.cell_to_world(
 		grid_position
 	)
-
+	
 	moving = true
 
 
@@ -83,20 +91,35 @@ func _physics_process(delta):
 	if position.distance_to(target_position) < 0.1:
 		position = target_position
 		moving = false
+		
+		if has_node("EnemyNode1/EnemyAnimationPlayer1"):
+			$EnemyNode1/EnemyAnimationPlayer1.stop()
+		if has_node("EnemyNode2/EnemyAnimationPlayer2"):
+			$EnemyNode2/EnemyAnimationPlayer2.stop()
+		if has_node("EnemyNode3/EnemyAnimationPlayer3"):
+			$EnemyNode3/EnemyAnimationPlayer3.stop()
 
 
 func stop_movement():
 	moving = false
+	
+	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
+		$EnemyNode1/EnemyAnimationPlayer1.stop()
+	if has_node("EnemyNode2/EnemyAnimationPlayer2"):
+		$EnemyNode2/EnemyAnimationPlayer2.stop()
+	if has_node("EnemyNode3/EnemyAnimationPlayer3"):
+		$EnemyNode3/EnemyAnimationPlayer3.stop()
+		
 	target_position = position
 
 
-func _draw():
-	draw_rect(
-		Rect2(
-			-ENEMY_SIZE / 2.0,
-			-ENEMY_SIZE / 2.0,
-			ENEMY_SIZE,
-			ENEMY_SIZE
-		),
-		Color.RED
-	)
+#func _draw():
+#	draw_rect(
+#		Rect2(
+#			-ENEMY_SIZE / 2.0,
+#			-ENEMY_SIZE / 2.0,
+#			ENEMY_SIZE,
+#			ENEMY_SIZE
+#		),
+#		Color.RED
+#	)
