@@ -85,7 +85,7 @@ func slide(direction: Vector2i):
 	moving = true
 
 	if has_node("Node2D/AnimationPlayer"):
-		$Node2D/AnimationPlayer.play("walk")
+		$Node2D/AnimationPlayer.play("sheep_walking")
 
 
 func _physics_process(delta):
