@@ -139,7 +139,6 @@ hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Maze/Player/Node2D" unique_id=824219194]
 libraries/ = SubResource("AnimationLibrary_4osd1")
-speed_scale = 0.6
 
 [node name="Goal" type="Node2D" parent="Maze" unique_id=200407685]
 script = ExtResource("5_vef74")
