@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://tp54pptuy4l7"]
+
+[ext_resource type="Script" uid="uid://dayt7epeyq3u5" path="res://ui/autoloads/control_blocker.gd" id="1_2sos8"]
+
+[node name="ControlBlocker" type="CanvasLayer" unique_id=624511953]
+layer = 2
+script = ExtResource("1_2sos8")
+
+[node name="Control" type="Control" parent="." unique_id=1001316980]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
