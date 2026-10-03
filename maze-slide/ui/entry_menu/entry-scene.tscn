@@ -364,7 +364,7 @@ group = NodePath("../../CanvasLayer/NewGame/HBoxContainer")
 unique_name_in_owner = true
 script = ExtResource("5_i743p")
 layout = NodePath("../../CanvasLayer/LoadGame")
-controls = [NodePath("")]
+controls = Array[NodePath]([NodePath("")])
 group = NodePath("../../CanvasLayer/LoadGame/HBoxContainer")
 
 [node name="TransitionLevelSelect" type="Node" parent="Transitions" unique_id=1361297168]

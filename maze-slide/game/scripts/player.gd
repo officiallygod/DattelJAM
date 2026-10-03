@@ -79,6 +79,8 @@ func slide(direction: Vector2i):
 	target_position = maze.cell_to_world(grid_position)
 
 	moving = true
+	
+	$Node2D/AnimationPlayer.play("walk")
 
 
 func _physics_process(delta):
@@ -95,22 +97,24 @@ func _physics_process(delta):
 
 		position = target_position
 		moving = false
+		$Node2D/AnimationPlayer.stop()
 
 
 func stop_movement():
 
 	moving = false
 	target_position = position
+	$Node2D/AnimationPlayer.stop()
 
 
-func _draw():
-
-	draw_rect(
-		Rect2(
-			-PLAYER_SIZE / 2.0,
-			-PLAYER_SIZE / 2.0,
-			PLAYER_SIZE,
-			PLAYER_SIZE
-		),
-		Color.WHITE
-	)
+#func _draw():
+#
+	#draw_rect(
+		#Rect2(
+			#-PLAYER_SIZE / 2.0,
+			#-PLAYER_SIZE / 2.0,
+			#PLAYER_SIZE,
+			#PLAYER_SIZE
+		#),
+		#Color.WHITE
+	#)
