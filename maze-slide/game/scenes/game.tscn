@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dgs5anus7a3og" path="res://assets/Sprites/Sprite-0002.png" id="4_gy5jl"]
 [ext_resource type="Script" uid="uid://bve4bdflpins7" path="res://game/scripts/enemy.gd" id="4_j5wjh"]
 [ext_resource type="Script" uid="uid://guw3ip6s7d3o" path="res://game/scripts/goal.gd" id="5_vef74"]
+[ext_resource type="Texture2D" uid="uid://x51a5a8fwgv" path="res://assets/Sprites/portal1.png" id="6_og0sj"]
 [ext_resource type="Texture2D" uid="uid://c83bg00ogt7te" path="res://assets/Sprites/Sprite-0003.png" id="7_l4dfk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
@@ -108,6 +109,42 @@ _data = {
 &"sheep_walking": SubResource("Animation_gy5jl")
 }
 
+[sub_resource type="Animation" id="Animation_bbyh4"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoalSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_ngn8n"]
+resource_name = "portal"
+length = 0.46666667
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoalSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 3, -0.075, -0.50000006, 0, 0),
+"times": PackedFloat32Array(0, 0.45)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2nnov"]
+_data = {
+&"RESET": SubResource("Animation_bbyh4"),
+&"portal": SubResource("Animation_ngn8n")
+}
+
 [sub_resource type="LabelSettings" id="LabelSettings_ykdcs"]
 font_size = 40
 
@@ -142,6 +179,17 @@ libraries/ = SubResource("AnimationLibrary_4osd1")
 
 [node name="Goal" type="Node2D" parent="Maze" unique_id=200407685]
 script = ExtResource("5_vef74")
+
+[node name="GoalNode" type="Node2D" parent="Maze/Goal" unique_id=994876475]
+scale = Vector2(0.4, 0.4)
+
+[node name="GoalSprite" type="Sprite2D" parent="Maze/Goal/GoalNode" unique_id=1018403718]
+texture = ExtResource("6_og0sj")
+hframes = 4
+frame = 3
+
+[node name="GoalAnimationPlayer" type="AnimationPlayer" parent="Maze/Goal/GoalNode" unique_id=671247516]
+libraries/ = SubResource("AnimationLibrary_2nnov")
 
 [node name="Enemy1" type="CharacterBody2D" parent="Maze" unique_id=722823490]
 z_index = 10
