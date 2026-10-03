@@ -12,13 +12,20 @@ var maze
 func setup(start_cell: Vector2i, maze_node):
 	grid_position = start_cell
 	maze = maze_node
+
 	position = maze.cell_to_world(grid_position)
 	target_position = position
+
 	moving = false
+
 	queue_redraw()
 
 
-func get_slide_target(direction: Vector2i, blocked_cells: Array) -> Vector2i:
+func get_slide_target(
+	direction: Vector2i,
+	blocked_cells: Array
+) -> Vector2i:
+
 	var current = grid_position
 
 	while true:
@@ -37,10 +44,14 @@ func get_slide_target(direction: Vector2i, blocked_cells: Array) -> Vector2i:
 			break
 
 		current = next
+
 	return current
 
 
-func move_in_direction(direction: Vector2i, blocked_cells: Array):
+func move_in_direction(
+	direction: Vector2i,
+	blocked_cells: Array
+):
 	if moving:
 		return
 
@@ -53,7 +64,10 @@ func move_in_direction(direction: Vector2i, blocked_cells: Array):
 		return
 
 	grid_position = destination
-	target_position = maze.cell_to_world(grid_position)
+	target_position = maze.cell_to_world(
+		grid_position
+	)
+
 	moving = true
 
 

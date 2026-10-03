@@ -7,7 +7,9 @@ const SPEED = 300.0
 
 var grid_position = Vector2i.ZERO
 var target_position = Vector2.ZERO
+
 var moving = false
+var input_enabled = true
 var maze
 
 
@@ -19,13 +21,18 @@ func setup(start_cell: Vector2i, maze_node):
 	target_position = position
 
 	moving = false
+	input_enabled = true
 
-	queue_redraw()
+	if has_node("Node2D/AnimationPlayer"):
+		$Node2D/AnimationPlayer.stop()
+
+
+func set_input_enabled(enabled: bool):
+	input_enabled = enabled
 
 
 func _input(event):
-
-	if moving:
+	if moving or not input_enabled:
 		return
 
 	var direction = Vector2i.ZERO
@@ -50,41 +57,38 @@ func _input(event):
 
 
 func slide(direction: Vector2i):
-
 	var current = grid_position
 
 	while true:
-
 		var next = current + direction
 
-		# Outside the level
 		if next.x < 0 or next.x >= maze.grid_size:
 			break
 
 		if next.y < 0 or next.y >= maze.grid_size:
 			break
 
-		# Wall
 		if maze.has_wall_between(current, next):
 			break
 
 		current = next
 
-	# Didn't move
 	if current == grid_position:
 		return
 
 	grid_position = current
 
-	target_position = maze.cell_to_world(grid_position)
+	target_position = maze.cell_to_world(
+		grid_position
+	)
 
 	moving = true
-	
-	$Node2D/AnimationPlayer.play("sheep_walking")
+
+	if has_node("Node2D/AnimationPlayer"):
+		$Node2D/AnimationPlayer.play("walk")
 
 
 func _physics_process(delta):
-
 	if not moving:
 		return
 
@@ -94,27 +98,16 @@ func _physics_process(delta):
 	)
 
 	if position.distance_to(target_position) < 0.1:
-
 		position = target_position
 		moving = false
-		$Node2D/AnimationPlayer.stop()
+
+		if has_node("Node2D/AnimationPlayer"):
+			$Node2D/AnimationPlayer.stop()
 
 
 func stop_movement():
-
 	moving = false
 	target_position = position
-	$Node2D/AnimationPlayer.stop()
 
-
-#func _draw():
-#
-	#draw_rect(
-		#Rect2(
-			#-PLAYER_SIZE / 2.0,
-			#-PLAYER_SIZE / 2.0,
-			#PLAYER_SIZE,
-			#PLAYER_SIZE
-		#),
-		#Color.WHITE
-	#)
+	if has_node("Node2D/AnimationPlayer"):
+		$Node2D/AnimationPlayer.stop()

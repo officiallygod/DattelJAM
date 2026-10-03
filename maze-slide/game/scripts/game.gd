@@ -9,6 +9,7 @@ const ENEMY_SIZE = 44.0
 
 var LEVEL
 var game_over = false
+var turn_in_progress = false
 var enemies: Array[Node] = []
 
 
@@ -68,13 +69,37 @@ func setup_enemies():
 
 
 func _on_player_moved(direction: Vector2i):
+	if game_over or turn_in_progress:
+		return
+
+	turn_in_progress = true
+	player.set_input_enabled(false)
+
+	move_enemies(direction)
+
+	await wait_for_all_movement()
+
 	if game_over:
 		return
-	
+
+	check_player_enemy_collisions()
+
+	if game_over:
+		return
+
+	check_player_goal()
+
+	if not game_over:
+		turn_in_progress = false
+		player.set_input_enabled(true)
+
+
+func move_enemies(direction: Vector2i):
 	if direction.x != 0:
 		move_enemies_horizontal(direction.x)
 	else:
 		move_enemies_vertical(direction.y)
+
 
 func move_enemies_horizontal(direction: int):
 	var groups = {}
@@ -89,12 +114,10 @@ func move_enemies_horizontal(direction: int):
 			groups[row] = []
 
 		groups[row].append(enemy)
-	
 
 	for row in groups:
 		var group = groups[row]
 
-		# The enemy furthest in the direction of travel is first.
 		group.sort_custom(func(a, b):
 			if direction > 0:
 				return a.grid_position.x > b.grid_position.x
@@ -103,8 +126,10 @@ func move_enemies_horizontal(direction: int):
 		)
 
 		var front_cells: Array = []
-		var ctr = 0
+
 		for enemy in group:
+			var old_position = enemy.grid_position
+
 			var destination = enemy.get_slide_target(
 				Vector2i(direction, 0),
 				front_cells
@@ -112,13 +137,13 @@ func move_enemies_horizontal(direction: int):
 
 			front_cells.append(destination)
 
-			enemy.grid_position = destination
-			enemy.target_position = maze.cell_to_world(destination)
-			enemy.moving = true
+			if destination != old_position:
+				enemy.grid_position = destination
+				enemy.target_position = maze.cell_to_world(destination)
+				enemy.moving = true
 
 
 func move_enemies_vertical(direction: int):
-	
 	var groups = {}
 
 	for enemy in enemies:
@@ -160,6 +185,19 @@ func move_enemies_vertical(direction: int):
 				enemy.moving = true
 
 
+func wait_for_all_movement():
+	while player.moving or any_enemy_moving():
+		await get_tree().process_frame
+
+
+func any_enemy_moving() -> bool:
+	for enemy in enemies:
+		if enemy.visible and enemy.moving:
+			return true
+
+	return false
+
+
 func _physics_process(_delta):
 	if game_over:
 		return
@@ -180,8 +218,11 @@ func check_player_enemy_collisions():
 
 
 func player_touches_enemy(enemy) -> bool:
-	return abs(player.global_position.x - enemy.global_position.x) <= PLAYER_SIZE \
-		and abs(player.global_position.y - enemy.global_position.y) <= PLAYER_SIZE
+	return abs(
+		player.global_position.x - enemy.global_position.x
+	) <= PLAYER_SIZE and abs(
+		player.global_position.y - enemy.global_position.y
+	) <= PLAYER_SIZE
 
 
 func check_player_goal():
@@ -195,8 +236,23 @@ func check_player_goal():
 
 
 func player_touches_goal() -> bool:
-	return abs(player.global_position.x - goal.global_position.x) <= 38.0 \
-		and abs(player.global_position.y - goal.global_position.y) <= 38.0
+	var player_rect = Rect2(
+		player.global_position - Vector2(
+			PLAYER_SIZE / 2.0,
+			PLAYER_SIZE / 2.0
+		),
+		Vector2(
+			PLAYER_SIZE,
+			PLAYER_SIZE
+		)
+	)
+
+	var goal_rect = Rect2(
+		goal.global_position - Vector2(10, 20),
+		Vector2(30, 40)
+	)
+
+	return player_rect.intersects(goal_rect)
 
 
 func any_enemy_touches_goal() -> bool:
@@ -208,8 +264,23 @@ func any_enemy_touches_goal() -> bool:
 
 
 func enemy_touches_goal(enemy) -> bool:
-	return abs(enemy.global_position.x - goal.global_position.x) <= 38.0 \
-		and abs(enemy.global_position.y - goal.global_position.y) <= 38.0
+	var enemy_rect = Rect2(
+		enemy.global_position - Vector2(
+			ENEMY_SIZE / 2.0,
+			ENEMY_SIZE / 2.0
+		),
+		Vector2(
+			ENEMY_SIZE,
+			ENEMY_SIZE
+		)
+	)
+
+	var goal_rect = Rect2(
+		goal.global_position - Vector2(10, 20),
+		Vector2(30, 40)
+	)
+
+	return enemy_rect.intersects(goal_rect)
 
 
 func die():
@@ -217,8 +288,10 @@ func die():
 		return
 
 	game_over = true
+	turn_in_progress = true
 
 	player.stop_movement()
+	player.set_input_enabled(false)
 
 	for enemy in enemies:
 		if enemy.visible:
@@ -227,6 +300,7 @@ func die():
 	print("YOU DIED!")
 
 	await get_tree().create_timer(0.5).timeout
+
 	reset_level()
 
 
@@ -235,32 +309,51 @@ func win():
 		return
 
 	game_over = true
+	turn_in_progress = true
 
 	player.stop_movement()
+	player.set_input_enabled(false)
 
 	for enemy in enemies:
 		if enemy.visible:
 			enemy.stop_movement()
 
+	player.position = goal.position
+	player.target_position = goal.position
+
 	print("LEVEL WON!")
+
 	show_level_won_popup()
 
 
 func reset_level():
 	game_over = false
+	turn_in_progress = false
 
-	player.setup(LEVEL.PLAYER_START, maze)
+	player.setup(
+		LEVEL.PLAYER_START,
+		maze
+	)
+
 	setup_enemies()
-	goal.setup(LEVEL.GOAL_POSITION, maze)
+
+	goal.setup(
+		LEVEL.GOAL_POSITION,
+		maze
+	)
+
+	if has_node("GameUI/Controls/WinBackground"):
+		$GameUI/Controls/WinBackground.visible = false
 
 	if has_node("GameUI/Controls/LevelWonPopup"):
-		$GameUI/Controls/WinBackground.visible = false
 		$GameUI/Controls/LevelWonPopup.visible = false
 
 
 func show_level_won_popup():
-	if has_node("GameUI/Controls/LevelWonPopup"):
+	if has_node("GameUI/Controls/WinBackground"):
 		$GameUI/Controls/WinBackground.visible = true
+
+	if has_node("GameUI/Controls/LevelWonPopup"):
 		$GameUI/Controls/LevelWonPopup.visible = true
 
 
@@ -271,16 +364,28 @@ func setup_popup_connections():
 	var popup = $GameUI/Controls/LevelWonPopup
 
 	if popup.has_node("VBoxContainer/NextLevelButton"):
-		var next_button = popup.get_node("VBoxContainer/NextLevelButton")
+		var next_button = popup.get_node(
+			"VBoxContainer/NextLevelButton"
+		)
 
-		if not next_button.pressed.is_connected(_on_next_level_pressed):
-			next_button.pressed.connect(_on_next_level_pressed)
+		if not next_button.pressed.is_connected(
+			_on_next_level_pressed
+		):
+			next_button.pressed.connect(
+				_on_next_level_pressed
+			)
 
 	if popup.has_node("VBoxContainer/RetryButton"):
-		var retry_button = popup.get_node("VBoxContainer/RetryButton")
+		var retry_button = popup.get_node(
+			"VBoxContainer/RetryButton"
+		)
 
-		if not retry_button.pressed.is_connected(_on_retry_pressed):
-			retry_button.pressed.connect(_on_retry_pressed)
+		if not retry_button.pressed.is_connected(
+			_on_retry_pressed
+		):
+			retry_button.pressed.connect(
+				_on_retry_pressed
+			)
 
 
 func _on_next_level_pressed():
@@ -288,7 +393,10 @@ func _on_next_level_pressed():
 		print("GAME COMPLETE!")
 		return
 
-	LevelManager.set_level(LevelManager.current_level_index + 1)
+	LevelManager.set_level(
+		LevelManager.current_level_index + 1
+	)
+
 	get_tree().reload_current_scene()
 
 
