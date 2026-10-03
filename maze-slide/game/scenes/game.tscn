@@ -11,7 +11,7 @@
 size = Vector2(52, 52)
 
 [sub_resource type="Animation" id="Animation_l4dfk"]
-length = 0.96666664
+length = 1.4666667
 loop_mode = 1
 tracks/0/type = "bezier"
 tracks/0/imported = false
@@ -22,7 +22,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 23, -0.33166668, -3.6666667, 0, 0),
-"times": PackedFloat32Array(0, 0.9666667)
+"times": PackedFloat32Array(0, 1.2)
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -39,7 +39,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_gy5jl"]
 resource_name = "sheep_walking"
-length = 0.4
+length = 0.96666664
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -48,7 +48,7 @@ tracks/0/path = NodePath("%Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.23333335, 0.4666667, 0.73333335),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 0, 3]
@@ -125,7 +125,6 @@ frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Maze/Player/Node2D" unique_id=824219194]
 libraries/ = SubResource("AnimationLibrary_4osd1")
-speed_scale = 0.6
 
 [node name="Goal" type="Node2D" parent="Maze" unique_id=200407685]
 script = ExtResource("5_vef74")
