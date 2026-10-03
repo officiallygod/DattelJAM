@@ -22,6 +22,8 @@ func _process(_delta):
 func reset_scrolling():
 	scroll_vertical = 0
 	scroll_horizontal = 0
+	print("called this")
+	
 
 
 func start_scrolling():

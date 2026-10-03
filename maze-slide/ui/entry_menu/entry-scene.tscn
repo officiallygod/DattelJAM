@@ -336,7 +336,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 bbcode_enabled = true
-text = "[center]A new game is about to start..."
+text = "[center]Starting game..."
 fit_content = true
 scroll_active = false
 
@@ -381,7 +381,7 @@ bbcode_enabled = true
 text = "[center]
 
 
-Copyright 2023 ©️ Marinho Brandao	
+Copyright 2026 ©️ Dolly in the Maze
 Line 1
 Line 2
 Line 3
@@ -422,6 +422,7 @@ group = NodePath("../../CanvasLayer/MainMenu/Background/HBoxContainer")
 [node name="TransitionNewGame" type="Node" parent="Transitions" unique_id=1619376924]
 unique_name_in_owner = true
 script = ExtResource("5_i743p")
+ease_type = "IN_OUT"
 layout = NodePath("../../CanvasLayer/NewGame")
 group = NodePath("../../CanvasLayer/NewGame/HBoxContainer")
 

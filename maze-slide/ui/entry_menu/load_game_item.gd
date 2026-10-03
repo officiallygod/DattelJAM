@@ -9,7 +9,7 @@ signal game_deleted
 
 func set_game(game):
 	self.game_id = game.id
-	load_button.text = "#{} : {}%".format([game.id, game.completed_percent], "{}")
+	load_button.text = "Save {}".format([game.id, game.completed_percent], "{}")
 
 
 func _on_load_button_pressed():

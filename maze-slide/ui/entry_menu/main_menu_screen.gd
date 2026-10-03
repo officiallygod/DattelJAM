@@ -128,13 +128,14 @@ func _on_credits_button_pressed():
 	escape_to_return.can_return = false
 
 	credits_scrollable.reset_scrolling()
-
 	GuiTransitions.go_to("Credits")
+	
 	await GuiTransitions.show_completed
 
 	escape_to_return.can_return = true
 
 	credits_scrollable.start_scrolling()
+	
 
 
 func _on_quit_button_pressed():

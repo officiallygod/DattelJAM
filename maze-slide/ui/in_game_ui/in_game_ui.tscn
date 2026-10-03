@@ -160,7 +160,6 @@ stretch_mode = 5
 [node name="Settings" type="Control" parent="Pages" unique_id=872733475]
 unique_name_in_owner = true
 process_mode = 2
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -278,7 +277,6 @@ stretch_mode = 5
 [node name="Controls" type="Control" parent="Pages" unique_id=1955252106]
 unique_name_in_owner = true
 process_mode = 2
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
