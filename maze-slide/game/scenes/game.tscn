@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bve4bdflpins7" path="res://game/scripts/enemy.gd" id="4_j5wjh"]
 [ext_resource type="Script" uid="uid://guw3ip6s7d3o" path="res://game/scripts/goal.gd" id="5_vef74"]
 [ext_resource type="Texture2D" uid="uid://c83bg00ogt7te" path="res://assets/Sprites/Sprite-0003.png" id="7_l4dfk"]
+[ext_resource type="Script" uid="uid://3jb0nuxb4s04" path="res://game/scenes/level_generator.gd" id="8_og0sj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
 size = Vector2(52, 52)
@@ -298,5 +299,8 @@ horizontal_alignment = 1
 [node name="RetryButton" type="Button" parent="GameUI/Controls/GameWonPopup/VBoxContainer" unique_id=680757348]
 layout_mode = 2
 text = "PLAY AGAIN"
+
+[node name="Level Generator" type="Node2D" parent="." unique_id=1431675062]
+script = ExtResource("8_og0sj")
 
 [connection signal="pressed" from="GameUI/Controls/ResetButton" to="." method="_on_reset_button_pressed"]
