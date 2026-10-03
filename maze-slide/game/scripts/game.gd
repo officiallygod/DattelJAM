@@ -254,11 +254,13 @@ func reset_level():
 	goal.setup(LEVEL.GOAL_POSITION, maze)
 
 	if has_node("GameUI/Controls/LevelWonPopup"):
+		$GameUI/Controls/WinBackground.visible = false
 		$GameUI/Controls/LevelWonPopup.visible = false
 
 
 func show_level_won_popup():
 	if has_node("GameUI/Controls/LevelWonPopup"):
+		$GameUI/Controls/WinBackground.visible = true
 		$GameUI/Controls/LevelWonPopup.visible = true
 
 

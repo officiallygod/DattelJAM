@@ -1,0 +1,9 @@
+[gd_resource type="Theme" format=3 uid="uid://c5j4x8kpiycub"]
+
+[ext_resource type="FontFile" uid="uid://b6iovrbsc41to" path="res://ui/fonts/Nova_Square/NovaSquare-Regular.ttf" id="1_e1x85"]
+
+[resource]
+default_font_size = 30
+HeadingLabel/base_type = &"RichTextLabel"
+HeadingLabel/font_sizes/normal_font_size = 50
+HeadingLabel/fonts/normal_font = ExtResource("1_e1x85")
