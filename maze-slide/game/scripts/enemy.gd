@@ -5,61 +5,59 @@ const SPEED = 300.0
 
 var grid_position = Vector2i.ZERO
 var target_position = Vector2.ZERO
-
 var moving = false
 var maze
 
 
 func setup(start_cell: Vector2i, maze_node):
-
 	grid_position = start_cell
 	maze = maze_node
-
 	position = maze.cell_to_world(grid_position)
 	target_position = position
-
 	moving = false
-
 	queue_redraw()
 
 
-func move_in_direction(direction: Vector2i):
-
-	if moving:
-		return
-
+func get_slide_target(direction: Vector2i, blocked_cells: Array) -> Vector2i:
 	var current = grid_position
 
 	while true:
-
 		var next = current + direction
 
-		# Outside the level
 		if next.x < 0 or next.x >= maze.grid_size:
 			break
 
 		if next.y < 0 or next.y >= maze.grid_size:
 			break
 
-		# Wall
 		if maze.has_wall_between(current, next):
 			break
 
-		current = next
+		if next in blocked_cells:
+			break
 
-	# Didn't move
-	if current == grid_position:
+		current = next
+	return current
+
+
+func move_in_direction(direction: Vector2i, blocked_cells: Array):
+	if moving:
 		return
 
-	grid_position = current
+	var destination = get_slide_target(
+		direction,
+		blocked_cells
+	)
 
+	if destination == grid_position:
+		return
+
+	grid_position = destination
 	target_position = maze.cell_to_world(grid_position)
-
 	moving = true
 
 
 func _physics_process(delta):
-
 	if not moving:
 		return
 
@@ -69,33 +67,16 @@ func _physics_process(delta):
 	)
 
 	if position.distance_to(target_position) < 0.1:
-
 		position = target_position
 		moving = false
 
 
 func stop_movement():
-
 	moving = false
-	target_position = position
-
-
-func stop_next_to(other_enemy, direction: Vector2i):
-
-	moving = false
-
-	var offset = Vector2(
-		direction.x * ENEMY_SIZE,
-		direction.y * ENEMY_SIZE
-	)
-
-	position = other_enemy.position - offset
-
 	target_position = position
 
 
 func _draw():
-
 	draw_rect(
 		Rect2(
 			-ENEMY_SIZE / 2.0,

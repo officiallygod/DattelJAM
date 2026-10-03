@@ -70,18 +70,98 @@ func setup_enemies():
 func _on_player_moved(direction: Vector2i):
 	if game_over:
 		return
+	
+	if direction.x != 0:
+		move_enemies_horizontal(direction.x)
+	else:
+		move_enemies_vertical(direction.y)
+
+func move_enemies_horizontal(direction: int):
+	var groups = {}
 
 	for enemy in enemies:
-		if enemy.visible:
-			enemy.move_in_direction(direction)
+		if not enemy.visible:
+			continue
+
+		var row = enemy.grid_position.y
+
+		if not groups.has(row):
+			groups[row] = []
+
+		groups[row].append(enemy)
+	
+	print("groups", groups)
+
+	for row in groups:
+		var group = groups[row]
+
+		# The enemy furthest in the direction of travel is first.
+		group.sort_custom(func(a, b):
+			if direction > 0:
+				return a.grid_position.x > b.grid_position.x
+			else:
+				return a.grid_position.x < b.grid_position.x
+		)
+
+		var front_cells: Array = []
+		var ctr = 0
+		for enemy in group:
+			var destination = enemy.get_slide_target(
+				Vector2i(direction, 0),
+				front_cells
+			)
+
+			front_cells.append(destination)
+
+			enemy.grid_position = destination
+			enemy.target_position = maze.cell_to_world(destination)
+			enemy.moving = true
+
+
+func move_enemies_vertical(direction: int):
+	
+	var groups = {}
+
+	for enemy in enemies:
+		if not enemy.visible:
+			continue
+
+		var column = enemy.grid_position.x
+
+		if not groups.has(column):
+			groups[column] = []
+
+		groups[column].append(enemy)
+
+	for column in groups:
+		var group = groups[column]
+
+		group.sort_custom(func(a, b):
+			if direction > 0:
+				return a.grid_position.y > b.grid_position.y
+			else:
+				return a.grid_position.y < b.grid_position.y
+		)
+
+		var front_cells: Array = []
+
+		for enemy in group:
+			var old_position = enemy.grid_position
+
+			var destination = enemy.get_slide_target(
+				Vector2i(0, direction),
+				front_cells
+			)
+
+			front_cells.append(destination)
+
+			if destination != old_position:
+				enemy.grid_position = destination
+				enemy.target_position = maze.cell_to_world(destination)
+				enemy.moving = true
 
 
 func _physics_process(_delta):
-	if game_over:
-		return
-
-	check_enemy_collisions()
-
 	if game_over:
 		return
 
@@ -91,55 +171,6 @@ func _physics_process(_delta):
 		return
 
 	check_player_goal()
-
-
-func check_enemy_collisions():
-	for i in range(enemies.size()):
-		var enemy_a = enemies[i]
-
-		if not enemy_a.visible:
-			continue
-
-		for j in range(i + 1, enemies.size()):
-			var enemy_b = enemies[j]
-
-			if not enemy_b.visible:
-				continue
-
-			if enemies_touching(enemy_a, enemy_b):
-				resolve_enemy_collision(enemy_a, enemy_b)
-
-
-func enemies_touching(a, b) -> bool:
-	return abs(a.global_position.x - b.global_position.x) <= ENEMY_SIZE \
-		and abs(a.global_position.y - b.global_position.y) <= ENEMY_SIZE
-
-
-func resolve_enemy_collision(a, b):
-	if a.moving and not b.moving:
-		stop_enemy_next_to(a, b)
-	elif b.moving and not a.moving:
-		stop_enemy_next_to(b, a)
-	elif a.moving and b.moving:
-		var a_remaining = a.position.distance_to(a.target_position)
-		var b_remaining = b.position.distance_to(b.target_position)
-
-		if a_remaining > b_remaining:
-			stop_enemy_next_to(a, b)
-		else:
-			stop_enemy_next_to(b, a)
-
-
-func stop_enemy_next_to(enemy, other):
-	var difference = enemy.global_position - other.global_position
-	var direction = Vector2i.ZERO
-
-	if abs(difference.x) > abs(difference.y):
-		direction.x = sign(difference.x)
-	else:
-		direction.y = sign(difference.y)
-
-	enemy.stop_next_to(other, direction)
 
 
 func check_player_enemy_collisions():
