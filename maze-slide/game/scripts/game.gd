@@ -90,7 +90,6 @@ func move_enemies_horizontal(direction: int):
 
 		groups[row].append(enemy)
 	
-	print("groups", groups)
 
 	for row in groups:
 		var group = groups[row]
