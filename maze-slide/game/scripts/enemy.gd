@@ -17,6 +17,9 @@ func setup(start_cell: Vector2i, maze_node):
 	target_position = position
 
 	moving = false
+	
+	#if has_node("Node2D/AnimationPlayer"):
+	#	$Node2D/AnimationPlayer.stop()
 
 	queue_redraw()
 
@@ -67,7 +70,9 @@ func move_in_direction(
 	target_position = maze.cell_to_world(
 		grid_position
 	)
-
+	if has_node("Node2D/AnimationPlayer"):
+		$Node2D/AnimationPlayer.play("enemy_walking")
+		
 	moving = true
 
 
@@ -83,20 +88,27 @@ func _physics_process(delta):
 	if position.distance_to(target_position) < 0.1:
 		position = target_position
 		moving = false
+		
+		#if has_node("Node2D/AnimationPlayer"):
+		#	$Node2D/AnimationPlayer.stop()
 
 
 func stop_movement():
 	moving = false
+	
+	#if has_node("Node2D/AnimationPlayer"):
+	#	$Node2D/AnimationPlayer.stop()
+		
 	target_position = position
 
 
-func _draw():
-	draw_rect(
-		Rect2(
-			-ENEMY_SIZE / 2.0,
-			-ENEMY_SIZE / 2.0,
-			ENEMY_SIZE,
-			ENEMY_SIZE
-		),
-		Color.RED
-	)
+#func _draw():
+#	draw_rect(
+#		Rect2(
+#			-ENEMY_SIZE / 2.0,
+#			-ENEMY_SIZE / 2.0,
+#			ENEMY_SIZE,
+#			ENEMY_SIZE
+#		),
+#		Color.RED
+#	)

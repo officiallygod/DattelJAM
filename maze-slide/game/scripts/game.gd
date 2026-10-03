@@ -141,6 +141,9 @@ func move_enemies_horizontal(direction: int):
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
+				
+				if has_node("Node2D/AnimationPlayer"):
+					$Node2D/AnimationPlayer.play("enemy_walking")
 
 
 func move_enemies_vertical(direction: int):
@@ -183,6 +186,9 @@ func move_enemies_vertical(direction: int):
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
+				
+				if has_node("Node2D/AnimationPlayer"):
+					$Node2D/AnimationPlayer.play("enemy_walking")
 
 
 func wait_for_all_movement():

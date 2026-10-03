@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dgs5anus7a3og" path="res://assets/Sprites/Sprite-0002.png" id="4_gy5jl"]
 [ext_resource type="Script" uid="uid://bve4bdflpins7" path="res://game/scripts/enemy.gd" id="4_j5wjh"]
 [ext_resource type="Script" uid="uid://guw3ip6s7d3o" path="res://game/scripts/goal.gd" id="5_vef74"]
+[ext_resource type="Texture2D" uid="uid://c83bg00ogt7te" path="res://assets/Sprites/Sprite-0003.png" id="7_l4dfk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
 size = Vector2(52, 52)
@@ -37,9 +38,26 @@ tracks/1/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_ru4j2"]
+resource_name = "enemy_walking"
+length = 0.39999999999999997
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
 [sub_resource type="Animation" id="Animation_gy5jl"]
 resource_name = "sheep_walking"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -88,6 +106,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4osd1"]
 _data = {
 &"RESET": SubResource("Animation_l4dfk"),
+&"enemy_walking": SubResource("Animation_ru4j2"),
 &"sheep_walking": SubResource("Animation_gy5jl"),
 &"walk": SubResource("Animation_og0sj"),
 &"walkk": SubResource("Animation_4osd1")
@@ -121,7 +140,6 @@ scale = Vector2(1.5, 1.5)
 unique_name_in_owner = true
 texture = ExtResource("4_gy5jl")
 hframes = 4
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Maze/Player/Node2D" unique_id=824219194]
 libraries/ = SubResource("AnimationLibrary_4osd1")
@@ -139,6 +157,20 @@ script = ExtResource("4_j5wjh")
 shape = SubResource("RectangleShape2D_hbghi")
 
 [node name="Polygon2D" type="Polygon2D" parent="Maze/Enemy1" unique_id=825583340]
+visible = false
+
+[node name="Node2D" type="Node2D" parent="Maze/Enemy1" unique_id=1801475647]
+scale = Vector2(1.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Maze/Enemy1/Node2D" unique_id=1482973442]
+texture = ExtResource("7_l4dfk")
+hframes = 4
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Maze/Enemy1/Node2D" unique_id=1753448918]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_4osd1")
+speed_scale = 1.366
 
 [node name="Enemy2" type="CharacterBody2D" parent="Maze" unique_id=1425965841]
 z_index = 10
@@ -150,6 +182,18 @@ shape = SubResource("RectangleShape2D_hbghi")
 
 [node name="Polygon2D" type="Polygon2D" parent="Maze/Enemy2" unique_id=831981410]
 
+[node name="Node2D" type="Node2D" parent="Maze/Enemy2" unique_id=2094233494]
+scale = Vector2(1.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Maze/Enemy2/Node2D" unique_id=1122797545]
+texture = ExtResource("7_l4dfk")
+hframes = 4
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Maze/Enemy2/Node2D" unique_id=1696021043]
+libraries/ = SubResource("AnimationLibrary_4osd1")
+speed_scale = 0.6
+
 [node name="Enemy3" type="CharacterBody2D" parent="Maze" unique_id=1512825776]
 z_index = 10
 position = Vector2(30, 30)
@@ -159,6 +203,18 @@ script = ExtResource("4_j5wjh")
 shape = SubResource("RectangleShape2D_hbghi")
 
 [node name="Polygon2D" type="Polygon2D" parent="Maze/Enemy3" unique_id=681121545]
+
+[node name="Node2D" type="Node2D" parent="Maze/Enemy3" unique_id=1468882439]
+scale = Vector2(1.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Maze/Enemy3/Node2D" unique_id=1535414706]
+texture = ExtResource("7_l4dfk")
+hframes = 4
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Maze/Enemy3/Node2D" unique_id=1248498026]
+libraries/ = SubResource("AnimationLibrary_4osd1")
+speed_scale = 0.6
 
 [node name="GameUI" type="CanvasLayer" parent="." unique_id=1424563225]
 
