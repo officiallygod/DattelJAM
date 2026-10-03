@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://c2sfkj7l3nlsh"]
+
+[ext_resource type="Script" uid="uid://dwj4sgl25esm6" path="res://game/scripts/game.gd" id="1_7jktm"]
+[ext_resource type="Script" uid="uid://beqfjwbdfkbef" path="res://game/scripts/maze.gd" id="2_ryrav"]
+[ext_resource type="Script" uid="uid://cxiv181xwkm4d" path="res://game/scripts/player.gd" id="3_eow3j"]
+[ext_resource type="Script" uid="uid://bve4bdflpins7" path="res://game/scripts/enemy.gd" id="4_j5wjh"]
+[ext_resource type="Script" uid="uid://guw3ip6s7d3o" path="res://game/scripts/goal.gd" id="5_vef74"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
+size = Vector2(52, 52)
+
+[node name="Game" type="Node2D" unique_id=1433985532]
+script = ExtResource("1_7jktm")
+
+[node name="Maze" type="Node2D" parent="." unique_id=681290047]
+script = ExtResource("2_ryrav")
+
+[node name="Player" type="CharacterBody2D" parent="Maze" unique_id=175239047]
+z_index = 10
+position = Vector2(30, 30)
+script = ExtResource("3_eow3j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Player" unique_id=1053072329]
+shape = SubResource("RectangleShape2D_hbghi")
+
+[node name="Polygon2D" type="Polygon2D" parent="Maze/Player" unique_id=534168008]
+
+[node name="Goal" type="Node2D" parent="Maze" unique_id=200407685]
+script = ExtResource("5_vef74")
+
+[node name="Enemy1" type="CharacterBody2D" parent="Maze" unique_id=722823490]
+z_index = 10
+position = Vector2(30, 30)
+script = ExtResource("4_j5wjh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy1" unique_id=1414578362]
+shape = SubResource("RectangleShape2D_hbghi")
+
+[node name="Polygon2D" type="Polygon2D" parent="Maze/Enemy1" unique_id=825583340]
+
+[node name="Enemy2" type="CharacterBody2D" parent="Maze" unique_id=1425965841]
+z_index = 10
+position = Vector2(30, 30)
+script = ExtResource("4_j5wjh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy2" unique_id=1571204367]
+shape = SubResource("RectangleShape2D_hbghi")
+
+[node name="Polygon2D" type="Polygon2D" parent="Maze/Enemy2" unique_id=831981410]
+
+[node name="Enemy3" type="CharacterBody2D" parent="Maze" unique_id=1512825776]
+z_index = 10
+position = Vector2(30, 30)
+script = ExtResource("4_j5wjh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy3" unique_id=251921400]
+shape = SubResource("RectangleShape2D_hbghi")
+
+[node name="Polygon2D" type="Polygon2D" parent="Maze/Enemy3" unique_id=681121545]
+
+[node name="GameUI" type="CanvasLayer" parent="." unique_id=1424563225]
+
+[node name="Controls" type="Control" parent="GameUI" unique_id=1977373599]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResetButton" type="Button" parent="GameUI/Controls" unique_id=1661511938]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 20.0
+offset_right = 580.0
+offset_bottom = 60.0
+text = "RESET"
+
+[connection signal="pressed" from="GameUI/Controls/ResetButton" to="." method="_on_reset_button_pressed"]
