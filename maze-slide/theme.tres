@@ -2,8 +2,12 @@
 
 [ext_resource type="FontFile" uid="uid://b6iovrbsc41to" path="res://ui/fonts/Nova_Square/NovaSquare-Regular.ttf" id="1_e1x85"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1qx2a"]
+bg_color = Color(0.02745098, 0.29803923, 0.18039216, 1)
+
 [resource]
 default_font_size = 30
 HeadingLabel/base_type = &"RichTextLabel"
 HeadingLabel/font_sizes/normal_font_size = 50
 HeadingLabel/fonts/normal_font = ExtResource("1_e1x85")
+HeadingLabel/styles/background = SubResource("StyleBoxFlat_1qx2a")
