@@ -106,7 +106,7 @@ theme = ExtResource("1_coyy4")
 theme_type_variation = &"HeadingLabel"
 theme_override_fonts/normal_font = ExtResource("6_xbe0p")
 bbcode_enabled = true
-text = "[center]Game Title or Logo"
+text = "[center]Dolly the Sheep!"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -152,7 +152,7 @@ theme_override_styles/hover = ExtResource("7_rdqd8")
 theme_override_styles/focus = ExtResource("7_rdqd8")
 text = "Levels"
 
-[node name="Random Level" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=154008326 groups=["UIButtons"]]
+[node name="RandomLevelButton" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=154008326 groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../LoadGameButton")
@@ -162,13 +162,6 @@ theme_override_fonts/font = ExtResource("6_xbe0p")
 theme_override_styles/hover = ExtResource("7_rdqd8")
 theme_override_styles/focus = ExtResource("7_rdqd8")
 text = "Random Level"
-
-[node name="CreditsButton" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1863465596 groups=["UIButtons"]]
-visible = false
-layout_mode = 2
-theme = ExtResource("1_coyy4")
-theme_override_fonts/font = ExtResource("6_rdqd8")
-text = "Credits"
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=406970802 groups=["UIButtons"]]
 unique_name_in_owner = true
@@ -180,6 +173,13 @@ theme_override_fonts/font = ExtResource("6_xbe0p")
 theme_override_styles/hover = ExtResource("7_rdqd8")
 theme_override_styles/focus = ExtResource("7_rdqd8")
 text = "Quit Game"
+
+[node name="CreditsButton" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1863465596 groups=["UIButtons"]]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_coyy4")
+theme_override_fonts/font = ExtResource("6_rdqd8")
+text = "Credits"
 
 [node name="Bottom Container" type="CenterContainer" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer" unique_id=823853998]
 visible = false
@@ -516,7 +516,7 @@ root_path = NodePath("../CanvasLayer")
 [connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton" to="CanvasLayer/MainMenu" method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton" to="CanvasLayer/MainMenu" method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LevelsButton" to="CanvasLayer/MainMenu" method="_on_levels_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Random Level" to="CanvasLayer/MainMenu" method="_on_random_level_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="CanvasLayer/MainMenu" method="_on_credits_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/RandomLevelButton" to="CanvasLayer/MainMenu" method="_on_random_level_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="CanvasLayer/MainMenu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="CanvasLayer/MainMenu" method="_on_credits_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/LevelSelect/BackButton" to="CanvasLayer/MainMenu" method="_on_back_button_pressed"]

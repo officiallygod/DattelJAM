@@ -9,7 +9,7 @@ extends Node2D
 
 const PLAYER_SIZE = 44.0
 const ENEMY_SIZE = 44.0
-const LevelGen = preload("res://game/scenes/level_generator.gd")
+const LevelGen = preload("res://game/scripts/level_generator.gd")
 
 var LEVEL
 var random_level: Node
