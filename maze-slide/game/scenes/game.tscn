@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c2sfkj7l3nlsh"]
 
 [ext_resource type="Script" uid="uid://dwj4sgl25esm6" path="res://game/scripts/game.gd" id="1_7jktm"]
+[ext_resource type="Texture2D" uid="uid://j36qt3yit8e8" path="res://assets/Sprites/lab.png" id="2_ru4j2"]
 [ext_resource type="Script" uid="uid://beqfjwbdfkbef" path="res://game/scripts/maze.gd" id="2_ryrav"]
 [ext_resource type="Script" uid="uid://cxiv181xwkm4d" path="res://game/scripts/player.gd" id="3_eow3j"]
 [ext_resource type="Texture2D" uid="uid://dgs5anus7a3og" path="res://assets/Sprites/Sprite-0002.png" id="4_gy5jl"]
@@ -9,6 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://x51a5a8fwgv" path="res://assets/Sprites/portal1.png" id="6_og0sj"]
 [ext_resource type="Texture2D" uid="uid://c83bg00ogt7te" path="res://assets/Sprites/Sprite-0003.png" id="7_l4dfk"]
 [ext_resource type="FontFile" uid="uid://djyo8bpsc6303" path="res://ui/fonts/Sniglet-ExtraBold.ttf" id="9_4osd1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n50qa"]
+texture = ExtResource("2_ru4j2")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
 size = Vector2(52, 52)
@@ -159,6 +165,12 @@ bg_color = Color(0.02745098, 0.29803923, 0.18039216, 1)
 [node name="Game" type="Node2D" unique_id=1433985532]
 script = ExtResource("1_7jktm")
 
+[node name="Background" type="Panel" parent="." unique_id=737733132]
+custom_minimum_size = Vector2(800, 600)
+offset_right = 600.0
+offset_bottom = 600.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_n50qa")
+
 [node name="Maze" type="Node2D" parent="." unique_id=681290047]
 script = ExtResource("2_ryrav")
 
@@ -283,9 +295,9 @@ grow_vertical = 2
 
 [node name="ResetButton" type="Button" parent="GameUI/Controls" unique_id=1661511938]
 layout_mode = 0
-offset_left = 480.0
+offset_left = 680.0
 offset_top = 20.0
-offset_right = 580.0
+offset_right = 780.0
 offset_bottom = 60.0
 text = "RESET"
 
@@ -303,10 +315,10 @@ color = Color(0.028838815, 0.29840353, 0.18179408, 1)
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
-offset_left = 125.0
+offset_left = 220.0
 offset_top = 180.0
-offset_right = 425.0
-offset_bottom = 440.0
+offset_right = 1020.0
+offset_bottom = 780.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_og0sj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameUI/Controls/LevelWonPopup" unique_id=821515435]
@@ -334,10 +346,10 @@ text = "PLAY AGAIN"
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
-offset_left = 150.0
-offset_top = 170.0
-offset_right = 450.0
-offset_bottom = 430.0
+offset_left = 220.0
+offset_top = 180.0
+offset_right = 1020.0
+offset_bottom = 780.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_4osd1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameUI/Controls/GameWonPopup" unique_id=1698907971]

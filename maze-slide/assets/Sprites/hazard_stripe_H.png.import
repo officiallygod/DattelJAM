@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bed3i87bguiu5"
-path="res://.godot/imported/grass.png-b779064527248da43370935c07e46325.ctex"
+uid="uid://b21ggcfsymemg"
+path="res://.godot/imported/hazard_stripe_H.png-d8293be10714b0663d2e224c5b5f0a6f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/grass.png"
-dest_files=["res://.godot/imported/grass.png-b779064527248da43370935c07e46325.ctex"]
+source_file="res://assets/Sprites/hazard_stripe_H.png"
+dest_files=["res://.godot/imported/hazard_stripe_H.png-d8293be10714b0663d2e224c5b5f0a6f.ctex"]
 
 [params]
 
