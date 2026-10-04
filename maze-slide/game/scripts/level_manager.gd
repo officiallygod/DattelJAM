@@ -4,7 +4,8 @@ const LEVELS = [
 	preload("res://levels/level_01.gd"),
 	preload("res://levels/level_02.gd"),
 	preload("res://levels/level_03.gd"),
-	preload("res://levels/level_04.gd")
+	preload("res://levels/level_04.gd"),
+	preload("res://levels/level_05.gd")
 ]
 
 var current_level_index: int = 0

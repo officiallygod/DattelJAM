@@ -434,13 +434,14 @@ func setup_popup_connections():
 
 
 func _on_next_level_pressed():
-	if LevelManager.current_level_index + 1 >= LevelManager.get_level_count():
-		print("GAME COMPLETE!")
-		return
+	if not LevelManager.get_random_level():
+		if LevelManager.current_level_index + 1 >= LevelManager.get_level_count():
+			print("GAME COMPLETE!")
+			return
 
-	LevelManager.set_level(
-		LevelManager.current_level_index + 1
-	)
+		LevelManager.set_level(
+			LevelManager.current_level_index + 1
+		)
 
 	get_tree().reload_current_scene()
 
