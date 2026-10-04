@@ -154,6 +154,17 @@ theme_override_styles/hover = ExtResource("7_rdqd8")
 theme_override_styles/focus = ExtResource("7_rdqd8")
 text = "Quit Game"
 
+[node name="Random Level" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=154008326 groups=["UIButtons"]]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../LoadGameButton")
+focus_next = NodePath("../LoadGameButton")
+theme = ExtResource("1_coyy4")
+theme_override_fonts/font = ExtResource("6_rdqd8")
+theme_override_styles/hover = ExtResource("7_rdqd8")
+theme_override_styles/focus = ExtResource("7_rdqd8")
+text = "Random Level"
+
 [node name="Bottom Container" type="CenterContainer" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer" unique_id=823853998]
 visible = false
 custom_minimum_size = Vector2(0, 100)

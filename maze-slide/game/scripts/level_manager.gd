@@ -14,7 +14,7 @@ func get_current_level():
 
 
 func set_level(level_index: int):
-	if level_index < 0 or level_index >= LEVELS.size():
+	if level_index >= LEVELS.size():
 		return
 
 	current_level_index = level_index

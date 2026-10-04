@@ -146,6 +146,11 @@ func _on_quit_button_pressed():
 
 	GuiTransitions.hide("MainMenu", quit_application_callback)
 
+func _on_random_level_button_pressed():
+	LevelManager.set_level(-1)
+	GameManager.load_scene(first_scene_new_game)
+	
+
 
 func can_load_game():
 	var saved_games = GamePersistence.get_saved_games()
