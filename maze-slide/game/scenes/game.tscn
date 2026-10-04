@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dgs5anus7a3og" path="res://assets/Sprites/Sprite-0002.png" id="4_gy5jl"]
 [ext_resource type="Script" uid="uid://bve4bdflpins7" path="res://game/scripts/enemy.gd" id="4_j5wjh"]
 [ext_resource type="Script" uid="uid://guw3ip6s7d3o" path="res://game/scripts/goal.gd" id="5_vef74"]
-[ext_resource type="Texture2D" uid="uid://x51a5a8fwgv" path="res://assets/Sprites/portal1.png" id="6_og0sj"]
 [ext_resource type="Texture2D" uid="uid://c83bg00ogt7te" path="res://assets/Sprites/Sprite-0003.png" id="7_l4dfk"]
+[ext_resource type="Texture2D" uid="uid://dfs3rdoiyssgp" path="res://assets/Sprites/door_standard_closed.png" id="7_ru4j2"]
 [ext_resource type="FontFile" uid="uid://djyo8bpsc6303" path="res://ui/fonts/Sniglet-ExtraBold.ttf" id="9_4osd1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n50qa"]
@@ -153,14 +153,14 @@ _data = {
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_og0sj"]
-bg_color = Color(0.02745098, 0.29803923, 0.18039216, 1)
+bg_color = Color(0.33333334, 0.38431373, 0.42745098, 0.8980392)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ykdcs"]
 font = ExtResource("9_4osd1")
 font_size = 40
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4osd1"]
-bg_color = Color(0.02745098, 0.29803923, 0.18039216, 1)
+bg_color = Color(0.33333334, 0.38431373, 0.42745098, 0.8980392)
 
 [node name="Game" type="Node2D" unique_id=1433985532]
 script = ExtResource("1_7jktm")
@@ -172,11 +172,13 @@ offset_bottom = 600.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_n50qa")
 
 [node name="Maze" type="Node2D" parent="." unique_id=681290047]
+z_index = 2
 script = ExtResource("2_ryrav")
 
 [node name="Player" type="CharacterBody2D" parent="Maze" unique_id=175239047]
 z_index = 10
 position = Vector2(30, 30)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("3_eow3j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Player" unique_id=1053072329]
@@ -201,12 +203,10 @@ libraries/ = SubResource("AnimationLibrary_4osd1")
 script = ExtResource("5_vef74")
 
 [node name="GoalNode" type="Node2D" parent="Maze/Goal" unique_id=994876475]
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.35, 0.35)
 
 [node name="GoalSprite" type="Sprite2D" parent="Maze/Goal/GoalNode" unique_id=1018403718]
-texture = ExtResource("6_og0sj")
-hframes = 4
-frame = 3
+texture = ExtResource("7_ru4j2")
 
 [node name="GoalAnimationPlayer" type="AnimationPlayer" parent="Maze/Goal/GoalNode" unique_id=671247516]
 libraries/ = SubResource("AnimationLibrary_2nnov")
@@ -214,6 +214,7 @@ libraries/ = SubResource("AnimationLibrary_2nnov")
 [node name="Enemy1" type="CharacterBody2D" parent="Maze" unique_id=722823490]
 z_index = 10
 position = Vector2(30, 30)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("4_j5wjh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy1" unique_id=1414578362]
@@ -238,6 +239,7 @@ libraries/ = SubResource("AnimationLibrary_4osd1")
 [node name="Enemy2" type="CharacterBody2D" parent="Maze" unique_id=1425965841]
 z_index = 10
 position = Vector2(30, 30)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("4_j5wjh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy2" unique_id=1571204367]
@@ -262,6 +264,7 @@ libraries/ = SubResource("AnimationLibrary_4osd1")
 [node name="Enemy3" type="CharacterBody2D" parent="Maze" unique_id=1512825776]
 z_index = 10
 position = Vector2(30, 30)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("4_j5wjh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy3" unique_id=251921400]
@@ -309,7 +312,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.028838815, 0.29840353, 0.18179408, 1)
+color = Color(0.33333334, 0.38431373, 0.42745098, 0.8980392)
 
 [node name="LevelWonPopup" type="Panel" parent="GameUI/Controls" unique_id=977368916]
 unique_name_in_owner = true

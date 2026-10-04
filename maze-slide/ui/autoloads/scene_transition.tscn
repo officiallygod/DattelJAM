@@ -9,6 +9,8 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_a3q6h"]
 gradient = SubResource("Gradient_1ia1x")
+width = 16
+height = 16
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
@@ -81,7 +83,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.02745098, 0.29803923, 0.18039216, 1)
+color = Color(0.33333334, 0.38431373, 0.42745098, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundBlocker" unique_id=1589006971]
 layout_mode = 1

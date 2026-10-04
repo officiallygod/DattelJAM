@@ -1,7 +1,7 @@
 extends Node2D
 
-const WALL_THICKNESS = 11.0
-const WALL_COLLISION_THICKNESS = 2.0
+const WALL_THICKNESS = 6.0
+const WALL_COLLISION_THICKNESS = 4.0
 
 const FLOOR_TEXTURE = preload(
 	"res://assets/Sprites/floor_sterile.png"
@@ -145,11 +145,11 @@ func _draw():
 				cell_size
 			)
 
-			#draw_texture_rect_region(
-				#FLOOR_TEXTURE,
-				#destination_rect,
-				#source_rect
-			#)
+			draw_texture_rect_region(
+				FLOOR_TEXTURE,
+				destination_rect,
+				source_rect
+			)
 
 
 	# ---------------------------------------------------------

@@ -55,7 +55,7 @@ texture = ExtResource("8_jfgbl")
 texture = ExtResource("9_j7kqt")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6m4j"]
-bg_color = Color(0.02745098, 0.29803923, 0.18039216, 1)
+bg_color = Color(0.33333334, 0.38431373, 0.42745098, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cq6kb"]
 bg_color = Color(0.02745098, 0.29803923, 0.18039216, 1)
@@ -194,8 +194,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
+mouse_filter = 1
+color = Color(0, 0, 0, 0.27058825)
 
 [node name="LoadGame" type="Control" parent="CanvasLayer" unique_id=1656964966]
 unique_name_in_owner = true
