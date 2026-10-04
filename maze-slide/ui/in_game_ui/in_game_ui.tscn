@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dt8qdw2jjjvqk" path="res://addons/simple-gui-transitions/transition.gd" id="3_rxbxl"]
 [ext_resource type="Script" uid="uid://dh2cc3bto6ut8" path="res://ui/scripts/focus_first.gd" id="3_ya1jk"]
 [ext_resource type="Texture2D" uid="uid://cvi8jgfqd2t1g" path="res://ui/images/arrow-narrow-left-semi.png" id="4_5jjlj"]
+[ext_resource type="FontFile" uid="uid://cn1tpv5vrsmfp" path="res://ui/fonts/JetBrains_Mono/static/BlackOpsOne-Regular.ttf" id="4_iw8ba"]
 [ext_resource type="Texture2D" uid="uid://bt1ebn58tciix" path="res://ui/images/arrow-narrow-left.png" id="4_ocg6o"]
 [ext_resource type="Texture2D" uid="uid://ceyc1t8u2u4q" path="res://ui/images/arrow-narrow-left-inverted.png" id="5_pwro8"]
 [ext_resource type="PackedScene" uid="uid://dlym47ojq04o7" path="res://ui/audio/ui_audio_effects_attacher.tscn" id="5_yt0n1"]
@@ -114,11 +115,13 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../QuitButton")
 focus_previous = NodePath("../QuitButton")
 theme = ExtResource("1_ghw0i")
+theme_override_fonts/font = ExtResource("4_iw8ba")
 text = "Resume Game"
 
 [node name="MainMenuButton" type="Button" parent="Pages/PauseMenu/HBoxContainer/VBoxContainer" unique_id=1684820847 groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
+theme_override_fonts/font = ExtResource("4_iw8ba")
 text = "Return to Menu"
 
 [node name="QuitButton" type="Button" parent="Pages/PauseMenu/HBoxContainer/VBoxContainer" unique_id=1387508229 groups=["UIButtons"]]
@@ -126,6 +129,7 @@ layout_mode = 2
 focus_neighbor_bottom = NodePath("../ResumeButton")
 focus_next = NodePath("../ResumeButton")
 theme = ExtResource("1_ghw0i")
+theme_override_fonts/font = ExtResource("4_iw8ba")
 text = "Quit Game"
 
 [node name="PageLeftButton" type="TextureButton" parent="Pages/PauseMenu" unique_id=879694822 groups=["UIButtons"]]
