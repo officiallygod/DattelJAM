@@ -92,7 +92,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.298039, 0.298039, 0.298039, 1)
+color = Color(0.33333334, 0.38431373, 0.42745098, 0.8980392)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Pages/PauseMenu" unique_id=1530374827]
 layout_mode = 1
@@ -129,6 +129,7 @@ theme = ExtResource("1_ghw0i")
 text = "Quit Game"
 
 [node name="PageLeftButton" type="TextureButton" parent="Pages/PauseMenu" unique_id=879694822 groups=["UIButtons"]]
+visible = false
 modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 1
 anchors_preset = 9
@@ -142,6 +143,7 @@ texture_hover = ExtResource("4_ocg6o")
 stretch_mode = 5
 
 [node name="PageRightButton" type="TextureButton" parent="Pages/PauseMenu" unique_id=629676598 groups=["UIButtons"]]
+visible = false
 modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 1
 anchors_preset = 11
@@ -160,6 +162,7 @@ stretch_mode = 5
 [node name="Settings" type="Control" parent="Pages" unique_id=872733475]
 unique_name_in_owner = true
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -277,6 +280,7 @@ stretch_mode = 5
 [node name="Controls" type="Control" parent="Pages" unique_id=1955252106]
 unique_name_in_owner = true
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
