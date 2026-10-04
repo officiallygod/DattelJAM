@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bve4bdflpins7" path="res://game/scripts/enemy.gd" id="4_j5wjh"]
 [ext_resource type="Script" uid="uid://guw3ip6s7d3o" path="res://game/scripts/goal.gd" id="5_vef74"]
 [ext_resource type="Texture2D" uid="uid://c83bg00ogt7te" path="res://assets/Sprites/Sprite-0003.png" id="7_l4dfk"]
+[ext_resource type="FontFile" uid="uid://djyo8bpsc6303" path="res://ui/fonts/Sniglet-ExtraBold.ttf" id="9_4osd1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
 size = Vector2(52, 52)
@@ -109,6 +110,7 @@ _data = {
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_ykdcs"]
+font = ExtResource("9_4osd1")
 font_size = 40
 
 [node name="Game" type="Node2D" unique_id=1433985532]

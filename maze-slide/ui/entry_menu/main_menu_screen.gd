@@ -91,6 +91,7 @@ func _focus_on_first_load_game():
 
 func _on_new_game_button_pressed():
 	LevelManager.set_level(0)
+	LevelManager.set_random_level(false)
 
 	escape_to_return.can_return = false
 
@@ -224,3 +225,18 @@ func _after_game_deleted():
 	if len(remaining_games) == 0:
 		_update_main_menu_buttons()
 		escape_to_return.apply_return()
+
+
+func _on_random_level_pressed() -> void:
+	LevelManager.set_level(0)
+	LevelManager.set_random_level(true)
+	
+	escape_to_return.can_return = false
+
+	GuiTransitions.go_to("NewGame")
+	await GuiTransitions.show_completed
+
+	var new_game = GamePersistence.save_new_game(first_scene_new_game)
+
+	GameManager.set_current_game(new_game["id"])
+	GameManager.load_scene(first_scene_new_game)

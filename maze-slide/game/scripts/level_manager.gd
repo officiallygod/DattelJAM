@@ -8,6 +8,7 @@ const LEVELS = [
 
 var current_level_index: int = 0
 
+var is_random_level = false
 
 func get_current_level():
 	return LEVELS[current_level_index]
@@ -19,6 +20,11 @@ func set_level(level_index: int):
 
 	current_level_index = level_index
 
-
+func get_random_level():
+	return is_random_level
+	
+func set_random_level(is_random: bool):
+	is_random_level = is_random
+	
 func get_level_count() -> int:
 	return LEVELS.size()

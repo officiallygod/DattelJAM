@@ -18,6 +18,9 @@ var enemies: Array[Node] = []
 func _ready():
 	LEVEL = LevelManager.get_current_level()
 	
+	if LevelManager.get_random_level():
+		LEVEL = LevelGenerator.generate()
+		
 	maze.setup(LEVEL)
 	center_maze()
 
