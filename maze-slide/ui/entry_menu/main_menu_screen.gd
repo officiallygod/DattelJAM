@@ -108,6 +108,8 @@ func _on_new_game_button_pressed():
 func _on_levels_button_pressed():
 	escape_to_return.can_return = false
 
+	LevelManager.set_random_level(false)
+
 	GuiTransitions.go_to("LevelSelect")
 	await GuiTransitions.show_completed
 
