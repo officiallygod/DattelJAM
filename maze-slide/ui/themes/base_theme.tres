@@ -1,6 +1,9 @@
 [gd_resource type="Theme" format=3 uid="uid://d1tl4ouhddgg7"]
 
+[ext_resource type="FontFile" uid="uid://djyo8bpsc6303" path="res://ui/fonts/Sniglet-ExtraBold.ttf" id="1_p8n18"]
+
 [resource]
 default_font_size = 30
 HeadingLabel/base_type = &"RichTextLabel"
 HeadingLabel/font_sizes/normal_font_size = 50
+HeadingLabel/fonts/normal_font = ExtResource("1_p8n18")

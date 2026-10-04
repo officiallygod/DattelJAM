@@ -9,25 +9,25 @@ func setup(goal_cell: Vector2i, maze):
 
 	queue_redraw()
 
-
-func _draw():
-
-	# Flag pole
-	draw_line(
-		Vector2(0, 18),
-		Vector2(0, -18),
-		Color.WHITE,
-		3.0
-	)
-
-	# Flag
-	var points = PackedVector2Array([
-		Vector2(0, -18),
-		Vector2(20, -10),
-		Vector2(0, -2)
-	])
-
-	draw_colored_polygon(
-		points,
-		Color("#4CAF50")
-	)
+#
+#func _draw():
+#
+	## Flag pole
+	#draw_line(
+		#Vector2(0, 18),
+		#Vector2(0, -18),
+		#Color.WHITE,
+		#3.0
+	#)
+#
+	## Flag
+	#var points = PackedVector2Array([
+		#Vector2(0, -18),
+		#Vector2(20, -10),
+		#Vector2(0, -2)
+	#])
+#
+	#draw_colored_polygon(
+		#points,
+		#Color("#4CAF50")
+	#)

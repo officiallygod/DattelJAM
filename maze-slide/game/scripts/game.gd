@@ -3,21 +3,34 @@ extends Node2D
 @onready var maze = $Maze
 @onready var player = $Maze/Player
 @onready var goal = $Maze/Goal
+@onready var game_win = $Sounds/GameWin
+@onready var player_win = $Sounds/PlayerWin
+@onready var player_lose = $Sounds/PlayerLose
 
 const PLAYER_SIZE = 44.0
 const ENEMY_SIZE = 44.0
+const LevelGen = preload("res://game/scripts/level_generator.gd")
+const background_music = preload("res://assets/audios/mixkit-infinity-440.mp3")
+
 
 var LEVEL
+var random_level: Node
 var game_over = false
 var turn_in_progress = false
 var enemies: Array[Node] = []
 
 
 func _ready():
+	MusicPlayer.play_music(background_music, -25.0)
 	LEVEL = LevelManager.get_current_level()
-
+	if LevelManager.get_random_level():
+		LEVEL = LevelGenerator.generate()
+		
 	maze.setup(LEVEL)
 	center_maze()
+	
+	#if has_node("Maze/Goal/GoalNode/GoalAnimationPlayer"):
+		#$Maze/Goal/GoalNode/GoalAnimationPlayer.play("portal")
 
 	player.setup(LEVEL.PLAYER_START, maze)
 	goal.setup(LEVEL.GOAL_POSITION, maze)
@@ -295,6 +308,7 @@ func die():
 	game_over = true
 	turn_in_progress = true
 
+	player_lose.play()
 	player.stop_movement()
 	player.set_input_enabled(false)
 
@@ -310,7 +324,7 @@ func die():
 		$Maze/Enemy3/EnemyNode/EnemyAnimationPlayer.stop()
 	print("YOU DIED!")
 
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.8).timeout
 
 	reset_level()
 
@@ -333,11 +347,15 @@ func win():
 	player.target_position = goal.position
 
 	print("LEVEL WON!")
+	await get_tree().create_timer(0.8).timeout
 
 	if LevelManager.current_level_index + 1 >= LevelManager.get_level_count():
 		show_game_won_popup()
+		game_win.play()
 		return
 	show_level_won_popup()
+	player_win.play()
+	
 
 
 func reset_level():
@@ -406,13 +424,14 @@ func setup_popup_connections():
 
 
 func _on_next_level_pressed():
-	if LevelManager.current_level_index + 1 >= LevelManager.get_level_count():
-		print("GAME COMPLETE!")
-		return
+	if not LevelManager.get_random_level():
+		if LevelManager.current_level_index + 1 >= LevelManager.get_level_count():
+			print("GAME COMPLETE!")
+			return
 
-	LevelManager.set_level(
-		LevelManager.current_level_index + 1
-	)
+		LevelManager.set_level(
+			LevelManager.current_level_index + 1
+		)
 
 	get_tree().reload_current_scene()
 
