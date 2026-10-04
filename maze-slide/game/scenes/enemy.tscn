@@ -1,0 +1,141 @@
+[gd_scene format=3 uid="uid://dxoqdtw8timm1"]
+
+[ext_resource type="Script" uid="uid://bve4bdflpins7" path="res://game/scripts/enemy.gd" id="1_nrroi"]
+[ext_resource type="Texture2D" uid="uid://c8kbpbbl6q514" path="res://assets/Sprites/Evil_Dolly-Sheet.png" id="2_nrroi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
+size = Vector2(52, 52)
+
+[sub_resource type="Animation" id="Animation_bbyh4"]
+resource_name = "Dolly_Walk_down"
+length = 0.39999999999999997
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_ngn8n"]
+resource_name = "Dolly_walk_left"
+length = 0.39999999999999997
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_2nnov"]
+resource_name = "Dolly_walk_right"
+length = 0.39999999999999997
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 3]
+}
+
+[sub_resource type="Animation" id="Animation_avpn4"]
+resource_name = "Dolly_walk_up"
+length = 0.39999999999999997
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_l4dfk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_gy5jl"]
+resource_name = "sheep_walking"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0cvah"]
+_data = {
+&"Dolly_Walk_down": SubResource("Animation_bbyh4"),
+&"Dolly_walk_left": SubResource("Animation_ngn8n"),
+&"Dolly_walk_right": SubResource("Animation_2nnov"),
+&"Dolly_walk_up": SubResource("Animation_avpn4"),
+&"RESET": SubResource("Animation_l4dfk"),
+&"sheep_walking": SubResource("Animation_gy5jl")
+}
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1840900438]
+z_index = 10
+script = ExtResource("1_nrroi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=4162254]
+shape = SubResource("RectangleShape2D_hbghi")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=138273622]
+visible = false
+
+[node name="Node2D" type="Node2D" parent="." unique_id=749728028]
+unique_name_in_owner = true
+scale = Vector2(2.25, 2.25)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=1017753050]
+unique_name_in_owner = true
+position = Vector2(5.9604645e-08, 0)
+scale = Vector2(0.6527778, 0.6527778)
+texture = ExtResource("2_nrroi")
+hframes = 16
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D" unique_id=316626354]
+libraries/ = SubResource("AnimationLibrary_0cvah")

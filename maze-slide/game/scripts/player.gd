@@ -85,7 +85,16 @@ func slide(direction: Vector2i):
 	moving = true
 
 	if has_node("Node2D/AnimationPlayer"):
-		$Node2D/AnimationPlayer.play("sheep_walking")
+		var animationPlayer = $Node2D/AnimationPlayer
+		
+		if direction == Vector2i(0, -1):
+			animationPlayer.play("Dolly_walk_up")
+		elif direction == Vector2i(0, 1):
+			animationPlayer.play("Dolly_Walk_down")
+		elif direction == Vector2i(-1, 0):
+			animationPlayer.play("Dolly_walk_left")
+		elif direction == Vector2i(1, 0):
+			animationPlayer.play("Dolly_walk_right")
 
 
 func _physics_process(delta):
