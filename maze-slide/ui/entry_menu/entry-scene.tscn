@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dh2cc3bto6ut8" path="res://ui/scripts/focus_first.gd" id="1_ta2ne"]
 [ext_resource type="Script" uid="uid://b1ktbolom8luq" path="res://ui/entry_menu/main_menu_screen.gd" id="1_wuwwh"]
 [ext_resource type="PackedScene" uid="uid://8jk0qjid17o4" path="res://ui/entry_menu/load_game_item.tscn" id="3_8fjeb"]
+[ext_resource type="Texture2D" uid="uid://bb6e5a1rh2y15" path="res://assets/Sprites/room_3.png" id="4_7epj0"]
 [ext_resource type="Script" uid="uid://cra5vf1x8bmmp" path="res://ui/scripts/escape_to_return.gd" id="4_eaira"]
 [ext_resource type="Script" uid="uid://dd13inhsjv7uo" path="res://ui/scripts/auto_scrolling.gd" id="4_ko2qo"]
 [ext_resource type="Script" uid="uid://dt8qdw2jjjvqk" path="res://addons/simple-gui-transitions/transition.gd" id="5_i743p"]
@@ -11,9 +12,11 @@
 [ext_resource type="FontFile" uid="uid://bvcrukqqyjsqj" path="res://ui/fonts/Sniglet-Regular.ttf" id="6_rdqd8"]
 [ext_resource type="StyleBox" uid="uid://dbw2dsae32jhy" path="res://button_hover.tres" id="7_rdqd8"]
 [ext_resource type="PackedScene" uid="uid://dlym47ojq04o7" path="res://ui/audio/ui_audio_effects_attacher.tscn" id="8_e8svh"]
+[ext_resource type="Texture2D" uid="uid://cb4ktd51yybin" path="res://assets/Sprites/room_4.png" id="8_jfgbl"]
+[ext_resource type="Texture2D" uid="uid://m3wobw2f3j7d" path="res://assets/Sprites/room_1.png" id="9_j7kqt"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3goq"]
-bg_color = Color(0.007843138, 0.14901961, 0.08235294, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7epj0"]
+texture = ExtResource("4_7epj0")
 
 [sub_resource type="Shader" id="Shader_am7si"]
 code = "shader_type canvas_item;
@@ -45,6 +48,18 @@ shader_parameter/vignette_color = Color(0, 0, 0, 1)
 shader_parameter/pulse_speed = 1.2
 shader_parameter/pulse_intensity = 0.0400000019
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ru4j2"]
+texture = ExtResource("8_jfgbl")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7kqt"]
+texture = ExtResource("9_j7kqt")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6m4j"]
+bg_color = Color(0.33333334, 0.38431373, 0.42745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cq6kb"]
+bg_color = Color(0.02745098, 0.29803923, 0.18039216, 1)
+
 [node name="Entry Scene" type="Node2D" unique_id=1898936429]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=298712048]
@@ -68,9 +83,9 @@ controls_in_sequence = [NodePath("../Background/HBoxContainer/VBoxContainer/HBox
 
 [node name="Background" type="PanelContainer" parent="CanvasLayer/MainMenu" unique_id=174323093]
 layout_mode = 0
-offset_right = 600.0
-offset_bottom = 578.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_h3goq")
+offset_right = 800.0
+offset_bottom = 600.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_7epj0")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MainMenu/Background" unique_id=69293178]
 layout_mode = 2
@@ -179,8 +194,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
+mouse_filter = 1
+color = Color(0, 0, 0, 0.27058825)
 
 [node name="LoadGame" type="Control" parent="CanvasLayer" unique_id=1656964966]
 unique_name_in_owner = true
@@ -191,6 +206,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/LoadGame" unique_id=549901974]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ru4j2")
 
 [node name="FocusFirst" type="Node" parent="CanvasLayer/LoadGame" unique_id=1811860313 node_paths=PackedStringArray("controls_in_sequence")]
 script = ExtResource("1_ta2ne")
@@ -217,6 +241,7 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_type_variation = &"HeadingLabel"
+theme_override_fonts/normal_font = ExtResource("5_lmbey")
 bbcode_enabled = true
 text = "[center]Load a game"
 fit_content = true
@@ -244,6 +269,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/LevelSelect" unique_id=1455748793]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_j7kqt")
 
 [node name="FocusFirst" type="Node" parent="CanvasLayer/LevelSelect" unique_id=2098121933 node_paths=PackedStringArray("controls_in_sequence")]
 unique_name_in_owner = true
@@ -294,6 +328,7 @@ theme_override_constants/separation = 10
 
 [node name="BackButton" type="Button" parent="CanvasLayer/LevelSelect" unique_id=1787393075]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
@@ -308,6 +343,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/NewGame" unique_id=1327700674]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k6m4j")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/NewGame" unique_id=765343088]
 layout_mode = 1
@@ -350,6 +394,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Credits" unique_id=879453220]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cq6kb")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Credits" unique_id=1273212386]
 layout_mode = 1
