@@ -2,14 +2,26 @@
 
 [ext_resource type="Script" uid="uid://dwj4sgl25esm6" path="res://game/scripts/game.gd" id="1_7jktm"]
 [ext_resource type="Script" uid="uid://beqfjwbdfkbef" path="res://game/scripts/maze.gd" id="2_ryrav"]
-[ext_resource type="Script" uid="uid://cxiv181xwkm4d" path="res://game/scripts/player.gd" id="3_eow3j"]
-[ext_resource type="Texture2D" uid="uid://dgs5anus7a3og" path="res://assets/Sprites/Sprite-0002.png" id="4_gy5jl"]
+[ext_resource type="PackedScene" uid="uid://bqds7yawo24bj" path="res://game/scenes/player.tscn" id="3_l4dfk"]
 [ext_resource type="Script" uid="uid://bve4bdflpins7" path="res://game/scripts/enemy.gd" id="4_j5wjh"]
+[ext_resource type="PackedScene" uid="uid://dxoqdtw8timm1" path="res://game/scenes/enemy.tscn" id="5_og0sj"]
 [ext_resource type="Script" uid="uid://guw3ip6s7d3o" path="res://game/scripts/goal.gd" id="5_vef74"]
 [ext_resource type="Texture2D" uid="uid://c83bg00ogt7te" path="res://assets/Sprites/Sprite-0003.png" id="7_l4dfk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
 size = Vector2(52, 52)
+
+[sub_resource type="Animation" id="Animation_bbyh4"]
+resource_name = "Dolly_Walk_down"
+
+[sub_resource type="Animation" id="Animation_ngn8n"]
+resource_name = "Dolly_walk_left"
+
+[sub_resource type="Animation" id="Animation_2nnov"]
+resource_name = "Dolly_walk_right"
+
+[sub_resource type="Animation" id="Animation_avpn4"]
+resource_name = "Dolly_walk_up"
 
 [sub_resource type="Animation" id="Animation_l4dfk"]
 length = 0.001
@@ -84,7 +96,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_gy5jl"]
 resource_name = "sheep_walking"
-length = 0.4
+length = 0.8
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -93,7 +105,7 @@ tracks/0/path = NodePath("%Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 0, 3]
@@ -101,6 +113,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4osd1"]
 _data = {
+&"Dolly_Walk_down": SubResource("Animation_bbyh4"),
+&"Dolly_walk_left": SubResource("Animation_ngn8n"),
+&"Dolly_walk_right": SubResource("Animation_2nnov"),
+&"Dolly_walk_up": SubResource("Animation_avpn4"),
 &"RESET": SubResource("Animation_l4dfk"),
 &"enemy_walking": SubResource("Animation_og0sj"),
 &"enemy_walking2": SubResource("Animation_4osd1"),
@@ -117,55 +133,14 @@ script = ExtResource("1_7jktm")
 [node name="Maze" type="Node2D" parent="." unique_id=681290047]
 script = ExtResource("2_ryrav")
 
-[node name="Player" type="CharacterBody2D" parent="Maze" unique_id=175239047]
-z_index = 10
+[node name="Player" parent="Maze" unique_id=1313483377 instance=ExtResource("3_l4dfk")]
 position = Vector2(30, 30)
-script = ExtResource("3_eow3j")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Player" unique_id=1053072329]
-shape = SubResource("RectangleShape2D_hbghi")
-
-[node name="Polygon2D" type="Polygon2D" parent="Maze/Player" unique_id=534168008]
-visible = false
-
-[node name="Node2D" type="Node2D" parent="Maze/Player" unique_id=1962962697]
-unique_name_in_owner = true
-scale = Vector2(1.5, 1.5)
-
-[node name="Sprite2D" type="Sprite2D" parent="Maze/Player/Node2D" unique_id=776783357]
-unique_name_in_owner = true
-texture = ExtResource("4_gy5jl")
-hframes = 4
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Maze/Player/Node2D" unique_id=824219194]
-libraries/ = SubResource("AnimationLibrary_4osd1")
 
 [node name="Goal" type="Node2D" parent="Maze" unique_id=200407685]
 script = ExtResource("5_vef74")
 
-[node name="Enemy1" type="CharacterBody2D" parent="Maze" unique_id=722823490]
-z_index = 10
+[node name="Enemy1" parent="Maze" unique_id=1840900438 instance=ExtResource("5_og0sj")]
 position = Vector2(30, 30)
-script = ExtResource("4_j5wjh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy1" unique_id=1414578362]
-shape = SubResource("RectangleShape2D_hbghi")
-
-[node name="Polygon2D" type="Polygon2D" parent="Maze/Enemy1" unique_id=825583340]
-visible = false
-
-[node name="EnemyNode1" type="Node2D" parent="Maze/Enemy1" unique_id=36133780]
-unique_name_in_owner = true
-scale = Vector2(1.5, 1.5)
-
-[node name="EnemySprite1" type="Sprite2D" parent="Maze/Enemy1/EnemyNode1" unique_id=614114588]
-unique_name_in_owner = true
-texture = ExtResource("7_l4dfk")
-hframes = 4
-
-[node name="EnemyAnimationPlayer1" type="AnimationPlayer" parent="Maze/Enemy1/EnemyNode1" unique_id=2073034407]
-unique_name_in_owner = true
-libraries/ = SubResource("AnimationLibrary_4osd1")
 
 [node name="Enemy2" type="CharacterBody2D" parent="Maze" unique_id=1425965841]
 z_index = 10
