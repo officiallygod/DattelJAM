@@ -18,12 +18,8 @@ func setup(start_cell: Vector2i, maze_node):
 
 	moving = false
 	
-	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-		$EnemyNode1/EnemyAnimationPlayer1.stop()
-	if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-		$EnemyNode2/EnemyAnimationPlayer2.stop()
-	if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-		$EnemyNode3/EnemyAnimationPlayer3.stop()
+	if has_node("Node2D/AnimationPlayer"):
+			$Node2D/AnimationPlayer.stop()
 		
 
 	queue_redraw()
@@ -77,6 +73,22 @@ func move_in_direction(
 	)
 	
 	moving = true
+	
+	if has_node("Node2D/AnimationPlayer"):
+		var animationPlayer = $Node2D/AnimationPlayer
+		
+		animationPlayer.stop()
+		
+		if direction == Vector2i(0, -1):
+			animationPlayer.play("Dolly_walk_up")
+		elif direction == Vector2i(0, 1):
+			animationPlayer.play("Dolly_Walk_down")
+		elif direction == Vector2i(-1, 0):
+			animationPlayer.play("Dolly_walk_left")
+		elif direction == Vector2i(1, 0):
+			animationPlayer.play("Dolly_walk_right")
+			
+		animationPlayer.seek(0)
 
 
 func _physics_process(delta):
@@ -92,23 +104,15 @@ func _physics_process(delta):
 		position = target_position
 		moving = false
 		
-		if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-			$EnemyNode1/EnemyAnimationPlayer1.stop()
-		if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-			$EnemyNode2/EnemyAnimationPlayer2.stop()
-		if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-			$EnemyNode3/EnemyAnimationPlayer3.stop()
+		if has_node("Node2D/AnimationPlayer"):
+			$Node2D/AnimationPlayer.stop()
 
 
 func stop_movement():
 	moving = false
 	
-	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-		$EnemyNode1/EnemyAnimationPlayer1.stop()
-	if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-		$EnemyNode2/EnemyAnimationPlayer2.stop()
-	if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-		$EnemyNode3/EnemyAnimationPlayer3.stop()
+	if has_node("Node2D/AnimationPlayer"):
+			$Node2D/AnimationPlayer.stop()
 		
 	target_position = position
 

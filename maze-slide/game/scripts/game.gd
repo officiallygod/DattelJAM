@@ -141,15 +141,10 @@ func move_enemies_horizontal(direction: int):
 			front_cells.append(destination)
 
 			if destination != old_position:
+				enemy.move_in_direction(Vector2i(direction, 0), front_cells)
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
-				if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
-					$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
-				if has_node("Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2"):
-					$Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2.play("enemy_walking2")
-				if has_node("Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3"):
-					$Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3.play("enemy_walking3")
 
 
 func move_enemies_vertical(direction: int):
@@ -189,15 +184,10 @@ func move_enemies_vertical(direction: int):
 			front_cells.append(destination)
 
 			if destination != old_position:
+				enemy.move_in_direction(Vector2i(0, direction), front_cells)
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
-				if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
-					$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
-				if has_node("Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2"):
-					$Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2.play("enemy_walking2")
-				if has_node("Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3"):
-					$Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3.play("enemy_walking3")
 
 
 func wait_for_all_movement():
