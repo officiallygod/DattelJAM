@@ -10,6 +10,8 @@ extends Node2D
 const PLAYER_SIZE = 44.0
 const ENEMY_SIZE = 44.0
 const LevelGen = preload("res://game/scripts/level_generator.gd")
+const background_music = preload("res://assets/audios/mixkit-infinity-440.mp3")
+
 
 var LEVEL
 var random_level: Node
@@ -19,8 +21,8 @@ var enemies: Array[Node] = []
 
 
 func _ready():
+	MusicPlayer.play_music(background_music, -25.0)
 	LEVEL = LevelManager.get_current_level()
-	
 	if LevelManager.get_random_level():
 		LEVEL = LevelGenerator.generate()
 		

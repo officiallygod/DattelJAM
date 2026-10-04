@@ -29,6 +29,7 @@ DialogLauncher="*uid://dsrigeegl4hwd"
 ControlBlocker="*uid://tp54pptuy4l7"
 GuiTransitions="*uid://b1gkev73ujoww"
 LevelManager="*uid://bhcv7g21um617"
+MusicPlayer="*uid://b04xtgkk4rdmu"
 
 [display]
 
