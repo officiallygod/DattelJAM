@@ -1,7 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://nblwxr2136j1"]
+[gd_scene format=3 uid="uid://nblwxr2136j1"]
 
-[ext_resource type="Script" path="res://ui/autoloads/game_saver.gd" id="1_hwcn4"]
+[ext_resource type="Script" uid="uid://cpgb1gywh66pr" path="res://ui/autoloads/game_saver.gd" id="1_hwcn4"]
 [ext_resource type="Texture2D" uid="uid://bgjbwwtu27o25" path="res://ui/images/auto-saving-text.png" id="2_rvid4"]
+
+[sub_resource type="Gradient" id="Gradient_e3qe2"]
+offsets = PackedFloat32Array(0.445783, 0.690763)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_poatj"]
+gradient = SubResource("Gradient_e3qe2")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Curve" id="Curve_tn5yt"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24898, 1), 0.0, 0.0, 0, 0, Vector2(0.746939, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -11,8 +20,7 @@ point_count = 4
 curve = SubResource("Curve_tn5yt")
 
 [sub_resource type="Curve" id="Curve_3mhvs"]
-min_value = -360.0
-max_value = 360.0
+_limits = [-360.0, 360.0, 0.0, 1.0]
 _data = [Vector2(0, -360), 0.0, 0.0, 0, 0, Vector2(0.99999, 360), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
@@ -20,7 +28,7 @@ point_count = 3
 curve = SubResource("Curve_3mhvs")
 
 [sub_resource type="Curve" id="Curve_7oydf"]
-max_value = 2.0
+_limits = [0.0, 2.0, 0.0, 1.0]
 _data = [Vector2(0, 0.10989), 0.0, 0.0, 0, 0, Vector2(0.24898, 2), 0.0, 0.0, 0, 0, Vector2(0.75102, 2), 0.0, 0.0, 0, 0, Vector2(1, 0.10989), 0.0, 0.0, 0, 0]
 point_count = 4
 
@@ -39,15 +47,6 @@ hue_variation_min = -1.0
 hue_variation_max = 1.0
 sub_emitter_mode = 1
 sub_emitter_frequency = 4.0
-
-[sub_resource type="Gradient" id="Gradient_e3qe2"]
-offsets = PackedFloat32Array(0.445783, 0.690763)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_poatj"]
-gradient = SubResource("Gradient_e3qe2")
-fill = 2
-fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Curve" id="Curve_tyevu"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24898, 1), 0.0, 0.0, 0, 0, Vector2(0.746939, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -71,25 +70,29 @@ scale_max = 0.4
 color_ramp = SubResource("GradientTexture1D_lx5r2")
 alpha_curve = SubResource("CurveTexture_t0iwg")
 
-[node name="GameSaver" type="Node"]
+[node name="GameSaver" type="Node" unique_id=104880506]
 script = ExtResource("1_hwcn4")
 auto_saving = true
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 30.0
+[node name="Timer" type="Timer" parent="." unique_id=874778138]
+wait_time = 10.0
 autostart = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1818642090]
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-custom_minimum_size = Vector2(100, 100)
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=452274326]
+custom_minimum_size = Vector2(50, 50)
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
+offset_left = 458.0
+offset_top = 458.0
+offset_right = 508.0
+offset_bottom = 508.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/margin_left = 20
@@ -97,23 +100,25 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="SavingParticles" type="GPUParticles2D" parent="CanvasLayer/MarginContainer"]
+[node name="SavingParticles" type="GPUParticles2D" parent="CanvasLayer/MarginContainer" unique_id=1729381865]
+scale = Vector2(0.3, 0.3)
 emitting = false
 amount = 1
 sub_emitter = NodePath("../SavingParticlesText")
-process_material = SubResource("ParticleProcessMaterial_rtdop")
 texture = SubResource("GradientTexture2D_poatj")
 lifetime = 3.0
 one_shot = true
 fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_rtdop")
 
-[node name="SavingParticlesText" type="GPUParticles2D" parent="CanvasLayer/MarginContainer"]
+[node name="SavingParticlesText" type="GPUParticles2D" parent="CanvasLayer/MarginContainer" unique_id=1562773709]
+scale = Vector2(0.3, 0.3)
 emitting = false
 amount = 1
-process_material = SubResource("ParticleProcessMaterial_dutmn")
 texture = ExtResource("2_rvid4")
 lifetime = 3.0
 one_shot = true
+process_material = SubResource("ParticleProcessMaterial_dutmn")
 
 [connection signal="before_saved" from="." to="CanvasLayer/MarginContainer/SavingParticles" method="restart"]
 [connection signal="timeout" from="Timer" to="." method="_auto_saving_timer_timeout"]

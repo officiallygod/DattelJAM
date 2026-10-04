@@ -29,10 +29,11 @@ DialogLauncher="*uid://dsrigeegl4hwd"
 ControlBlocker="*uid://tp54pptuy4l7"
 GuiTransitions="*uid://b1gkev73ujoww"
 LevelManager="*uid://bhcv7g21um617"
+MusicPlayer="*uid://b04xtgkk4rdmu"
 
 [display]
 
-window/size/viewport_width=600
+window/size/viewport_width=800
 window/size/viewport_height=600
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
@@ -69,3 +70,4 @@ ui_toggle_pause={
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+textures/vram_compression/import_etc2_astc=true

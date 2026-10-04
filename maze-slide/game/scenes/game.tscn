@@ -1,12 +1,24 @@
 [gd_scene format=3 uid="uid://c2sfkj7l3nlsh"]
 
 [ext_resource type="Script" uid="uid://dwj4sgl25esm6" path="res://game/scripts/game.gd" id="1_7jktm"]
+[ext_resource type="Texture2D" uid="uid://j36qt3yit8e8" path="res://assets/Sprites/lab.png" id="2_ru4j2"]
 [ext_resource type="Script" uid="uid://beqfjwbdfkbef" path="res://game/scripts/maze.gd" id="2_ryrav"]
 [ext_resource type="PackedScene" uid="uid://bqds7yawo24bj" path="res://game/scenes/player.tscn" id="3_l4dfk"]
 [ext_resource type="Script" uid="uid://bve4bdflpins7" path="res://game/scripts/enemy.gd" id="4_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://dxoqdtw8timm1" path="res://game/scenes/enemy.tscn" id="5_og0sj"]
 [ext_resource type="Script" uid="uid://guw3ip6s7d3o" path="res://game/scripts/goal.gd" id="5_vef74"]
 [ext_resource type="Texture2D" uid="uid://c83bg00ogt7te" path="res://assets/Sprites/Sprite-0003.png" id="7_l4dfk"]
+[ext_resource type="Texture2D" uid="uid://dfs3rdoiyssgp" path="res://assets/Sprites/door_standard_closed.png" id="7_ru4j2"]
+[ext_resource type="FontFile" uid="uid://djyo8bpsc6303" path="res://ui/fonts/Sniglet-ExtraBold.ttf" id="9_4osd1"]
+[ext_resource type="AudioStream" uid="uid://bquc3moud7vqh" path="res://assets/audios/win-small.wav" id="10_2nnov"]
+[ext_resource type="AudioStream" uid="uid://l7akbmr81oa1" path="res://assets/audios/win-long.wav" id="10_ngn8n"]
+[ext_resource type="AudioStream" uid="uid://c8ly0yqamfday" path="res://assets/audios/loose.wav" id="11_2nnov"]
+[ext_resource type="FontFile" uid="uid://cn1tpv5vrsmfp" path="res://ui/fonts/JetBrains_Mono/static/BlackOpsOne-Regular.ttf" id="13_avpn4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n50qa"]
+texture = ExtResource("2_ru4j2")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
 size = Vector2(52, 52)
@@ -124,27 +136,129 @@ _data = {
 &"sheep_walking": SubResource("Animation_gy5jl")
 }
 
+[sub_resource type="Animation" id="Animation_bbyh4"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoalSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_ngn8n"]
+resource_name = "portal"
+length = 0.46666667
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoalSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 3, -0.075, -0.50000006, 0, 0),
+"times": PackedFloat32Array(0, 0.45)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2nnov"]
+_data = {
+&"RESET": SubResource("Animation_bbyh4"),
+&"portal": SubResource("Animation_ngn8n")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_og0sj"]
+bg_color = Color(0.33333334, 0.38431373, 0.42745098, 0.8980392)
+
 [sub_resource type="LabelSettings" id="LabelSettings_ykdcs"]
+font = ExtResource("9_4osd1")
 font_size = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4osd1"]
+bg_color = Color(0.33333334, 0.38431373, 0.42745098, 0.8980392)
 
 [node name="Game" type="Node2D" unique_id=1433985532]
 script = ExtResource("1_7jktm")
 
+[node name="Background" type="Panel" parent="." unique_id=737733132]
+custom_minimum_size = Vector2(800, 600)
+offset_right = 600.0
+offset_bottom = 600.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_n50qa")
+
 [node name="Maze" type="Node2D" parent="." unique_id=681290047]
+z_index = 2
 script = ExtResource("2_ryrav")
 
 [node name="Player" parent="Maze" unique_id=1313483377 instance=ExtResource("3_l4dfk")]
 position = Vector2(30, 30)
+scale = Vector2(0.6, 0.6)
+script = ExtResource("3_eow3j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Player" unique_id=1053072329]
+shape = SubResource("RectangleShape2D_hbghi")
+
+[node name="Polygon2D" type="Polygon2D" parent="Maze/Player" unique_id=534168008]
+visible = false
+
+[node name="Node2D" type="Node2D" parent="Maze/Player" unique_id=1962962697]
+unique_name_in_owner = true
+scale = Vector2(1.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Maze/Player/Node2D" unique_id=776783357]
+unique_name_in_owner = true
+texture = ExtResource("4_gy5jl")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Maze/Player/Node2D" unique_id=824219194]
+libraries/ = SubResource("AnimationLibrary_4osd1")
 
 [node name="Goal" type="Node2D" parent="Maze" unique_id=200407685]
 script = ExtResource("5_vef74")
 
-[node name="Enemy1" parent="Maze" unique_id=1840900438 instance=ExtResource("5_og0sj")]
+[node name="GoalNode" type="Node2D" parent="Maze/Goal" unique_id=994876475]
+scale = Vector2(0.35, 0.35)
+
+[node name="GoalSprite" type="Sprite2D" parent="Maze/Goal/GoalNode" unique_id=1018403718]
+texture = ExtResource("7_ru4j2")
+
+[node name="GoalAnimationPlayer" type="AnimationPlayer" parent="Maze/Goal/GoalNode" unique_id=671247516]
+libraries/ = SubResource("AnimationLibrary_2nnov")
+
+[node name="Enemy1" type="CharacterBody2D" parent="Maze" unique_id=722823490]
+z_index = 10
 position = Vector2(30, 30)
+scale = Vector2(0.6, 0.6)
+script = ExtResource("4_j5wjh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy1" unique_id=1414578362]
+shape = SubResource("RectangleShape2D_hbghi")
+
+[node name="Polygon2D" type="Polygon2D" parent="Maze/Enemy1" unique_id=825583340]
+visible = false
+
+[node name="EnemyNode1" type="Node2D" parent="Maze/Enemy1" unique_id=36133780]
+unique_name_in_owner = true
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemySprite1" type="Sprite2D" parent="Maze/Enemy1/EnemyNode1" unique_id=614114588]
+unique_name_in_owner = true
+texture = ExtResource("7_l4dfk")
+hframes = 4
+
+[node name="EnemyAnimationPlayer1" type="AnimationPlayer" parent="Maze/Enemy1/EnemyNode1" unique_id=2073034407]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_4osd1")
 
 [node name="Enemy2" type="CharacterBody2D" parent="Maze" unique_id=1425965841]
 z_index = 10
 position = Vector2(30, 30)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("4_j5wjh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy2" unique_id=1571204367]
@@ -169,6 +283,7 @@ libraries/ = SubResource("AnimationLibrary_4osd1")
 [node name="Enemy3" type="CharacterBody2D" parent="Maze" unique_id=1512825776]
 z_index = 10
 position = Vector2(30, 30)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("4_j5wjh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy3" unique_id=251921400]
@@ -190,6 +305,17 @@ frame = 3
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_4osd1")
 
+[node name="Sounds" type="Node2D" parent="." unique_id=166624707]
+
+[node name="PlayerWin" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1431316422]
+stream = ExtResource("10_2nnov")
+
+[node name="PlayerLose" type="AudioStreamPlayer2D" parent="Sounds" unique_id=2010416511]
+stream = ExtResource("11_2nnov")
+
+[node name="GameWin" type="AudioStreamPlayer2D" parent="Sounds" unique_id=674911885]
+stream = ExtResource("10_ngn8n")
+
 [node name="GameUI" type="CanvasLayer" parent="." unique_id=1424563225]
 
 [node name="Controls" type="Control" parent="GameUI" unique_id=1977373599]
@@ -202,10 +328,11 @@ grow_vertical = 2
 
 [node name="ResetButton" type="Button" parent="GameUI/Controls" unique_id=1661511938]
 layout_mode = 0
-offset_left = 480.0
+offset_left = 680.0
 offset_top = 20.0
-offset_right = 580.0
+offset_right = 780.0
 offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("13_avpn4")
 text = "RESET"
 
 [node name="WinBackground" type="ColorRect" parent="GameUI/Controls" unique_id=1478342423]
@@ -216,16 +343,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.78431374)
+color = Color(0.33333334, 0.38431373, 0.42745098, 0.8980392)
 
 [node name="LevelWonPopup" type="Panel" parent="GameUI/Controls" unique_id=977368916]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
-offset_left = 150.0
-offset_top = 170.0
-offset_right = 450.0
-offset_bottom = 430.0
+offset_left = 220.0
+offset_top = 180.0
+offset_right = 1020.0
+offset_bottom = 780.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_og0sj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameUI/Controls/LevelWonPopup" unique_id=821515435]
 layout_mode = 0
@@ -252,17 +380,17 @@ text = "PLAY AGAIN"
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
-offset_left = 150.0
-offset_top = 170.0
-offset_right = 450.0
-offset_bottom = 430.0
+offset_left = 220.0
+offset_top = 180.0
+offset_right = 1020.0
+offset_bottom = 780.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4osd1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameUI/Controls/GameWonPopup" unique_id=1698907971]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 30.0
-offset_right = 270.0
-offset_bottom = 230.0
+offset_top = 55.0
+offset_right = 299.0
+offset_bottom = 255.0
 
 [node name="TitleLabel" type="Label" parent="GameUI/Controls/GameWonPopup/VBoxContainer" unique_id=603017439]
 layout_mode = 2
