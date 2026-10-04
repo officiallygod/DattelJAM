@@ -9,17 +9,23 @@ const LEVELS = [
 
 var current_level_index: int = 0
 
+var is_random_level = false
 
 func get_current_level():
 	return LEVELS[current_level_index]
 
 
 func set_level(level_index: int):
-	if level_index < 0 or level_index >= LEVELS.size():
+	if level_index >= LEVELS.size():
 		return
 
 	current_level_index = level_index
 
-
+func get_random_level():
+	return is_random_level
+	
+func set_random_level(is_random: bool):
+	is_random_level = is_random
+	
 func get_level_count() -> int:
 	return LEVELS.size()

@@ -9,8 +9,10 @@ extends Node2D
 
 const PLAYER_SIZE = 44.0
 const ENEMY_SIZE = 44.0
+const LevelGen = preload("res://game/scenes/level_generator.gd")
 
 var LEVEL
+var random_level: Node
 var game_over = false
 var turn_in_progress = false
 var enemies: Array[Node] = []
@@ -18,7 +20,10 @@ var enemies: Array[Node] = []
 
 func _ready():
 	LEVEL = LevelManager.get_current_level()
-
+	
+	if LevelManager.get_random_level():
+		LEVEL = LevelGenerator.generate()
+		
 	maze.setup(LEVEL)
 	center_maze()
 	
