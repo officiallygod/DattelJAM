@@ -17,6 +17,7 @@ extends Node
 @onready var level_select = %LevelSelect
 @onready var level_list = %LevelList
 @onready var back_button = %BackButton
+@onready var random_level_button = %RandomLevelButton
 
 
 func _ready():
@@ -147,11 +148,10 @@ func _on_quit_button_pressed():
 
 	GuiTransitions.hide("MainMenu", quit_application_callback)
 
+
 func _on_random_level_button_pressed():
 	LevelManager.set_level(-1)
 	GameManager.load_scene(first_scene_new_game)
-	
-
 
 func can_load_game():
 	var saved_games = GamePersistence.get_saved_games()
@@ -208,15 +208,22 @@ func _game_deletion_callback():
 
 func _update_main_menu_buttons():
 	new_game_button.visible = can_start_new_game
-	load_game_button.visible = can_load_game()
+	load_game_button.visible = false
 	levels_button.visible = true
+	random_level_button.visible = true
 
-	if load_game_button.visible:
-		new_game_button.focus_neighbor_top = load_game_button.get_path()
-		quit_button.focus_neighbor_bottom = load_game_button.get_path()
-	else:
-		new_game_button.focus_neighbor_top = quit_button.get_path()
-		quit_button.focus_neighbor_bottom = new_game_button.get_path()
+	# Keyboard navigation
+	new_game_button.focus_neighbor_top = quit_button.get_path()
+	new_game_button.focus_neighbor_bottom = levels_button.get_path()
+
+	levels_button.focus_neighbor_top = new_game_button.get_path()
+	levels_button.focus_neighbor_bottom = random_level_button.get_path()
+
+	random_level_button.focus_neighbor_top = levels_button.get_path()
+	random_level_button.focus_neighbor_bottom = quit_button.get_path()
+
+	quit_button.focus_neighbor_top = random_level_button.get_path()
+	quit_button.focus_neighbor_bottom = new_game_button.get_path()
 
 
 func _after_game_deleted():
