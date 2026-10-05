@@ -17,13 +17,12 @@ func setup(start_cell: Vector2i, maze_node):
 	target_position = position
 
 	moving = false
-	
-	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-		$EnemyNode1/EnemyAnimationPlayer1.stop()
-	if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-		$EnemyNode2/EnemyAnimationPlayer2.stop()
-	if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-		$EnemyNode3/EnemyAnimationPlayer3.stop()
+	#if has_node("EnemyNode1/EnemyAnimationPlayer1"):
+		#$EnemyNode1/EnemyAnimationPlayer1.stop()
+	#if has_node("EnemyNode2/EnemyAnimationPlayer2"):
+		#$EnemyNode2/EnemyAnimationPlayer2.stop()
+	#if has_node("EnemyNode3/EnemyAnimationPlayer3"):
+		#$EnemyNode3/EnemyAnimationPlayer3.stop()
 		
 
 	queue_redraw()
@@ -92,23 +91,23 @@ func _physics_process(delta):
 		position = target_position
 		moving = false
 		
-		if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-			$EnemyNode1/EnemyAnimationPlayer1.stop()
-		if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-			$EnemyNode2/EnemyAnimationPlayer2.stop()
-		if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-			$EnemyNode3/EnemyAnimationPlayer3.stop()
+		#if has_node("EnemyNode1/EnemyAnimationPlayer1"):
+			#$EnemyNode1/EnemyAnimationPlayer1.stop()
+		#if has_node("EnemyNode2/EnemyAnimationPlayer2"):
+			#$EnemyNode2/EnemyAnimationPlayer2.stop()
+		#if has_node("EnemyNode3/EnemyAnimationPlayer3"):
+			#$EnemyNode3/EnemyAnimationPlayer3.stop()
 
 
 func stop_movement():
 	moving = false
 	
-	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-		$EnemyNode1/EnemyAnimationPlayer1.stop()
-	if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-		$EnemyNode2/EnemyAnimationPlayer2.stop()
-	if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-		$EnemyNode3/EnemyAnimationPlayer3.stop()
+	#if has_node("EnemyNode1/EnemyAnimationPlayer1"):
+		#$EnemyNode1/EnemyAnimationPlayer1.stop()
+	#if has_node("EnemyNode2/EnemyAnimationPlayer2"):
+		#$EnemyNode2/EnemyAnimationPlayer2.stop()
+	#if has_node("EnemyNode3/EnemyAnimationPlayer3"):
+		#$EnemyNode3/EnemyAnimationPlayer3.stop()
 		
 	target_position = position
 

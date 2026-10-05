@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://guw3ip6s7d3o" path="res://game/scripts/goal.gd" id="5_vef74"]
 [ext_resource type="Texture2D" uid="uid://c83bg00ogt7te" path="res://assets/Sprites/Sprite-0003.png" id="7_l4dfk"]
 [ext_resource type="Texture2D" uid="uid://dfs3rdoiyssgp" path="res://assets/Sprites/door_standard_closed.png" id="7_ru4j2"]
+[ext_resource type="PackedScene" uid="uid://dxoqdtw8timm1" path="res://game/scenes/enemy.tscn" id="8_nw8cr"]
 [ext_resource type="FontFile" uid="uid://djyo8bpsc6303" path="res://ui/fonts/Sniglet-ExtraBold.ttf" id="9_4osd1"]
 [ext_resource type="AudioStream" uid="uid://bquc3moud7vqh" path="res://assets/audios/win-small.wav" id="10_2nnov"]
 [ext_resource type="AudioStream" uid="uid://l7akbmr81oa1" path="res://assets/audios/win-long.wav" id="10_ngn8n"]
@@ -215,30 +216,8 @@ texture = ExtResource("7_ru4j2")
 [node name="GoalAnimationPlayer" type="AnimationPlayer" parent="Maze/Goal/GoalNode" unique_id=671247516]
 libraries/ = SubResource("AnimationLibrary_2nnov")
 
-[node name="Enemy1" type="CharacterBody2D" parent="Maze" unique_id=722823490]
-z_index = 10
+[node name="Enemy1" parent="Maze" unique_id=1962944725 instance=ExtResource("8_nw8cr")]
 position = Vector2(30, 30)
-scale = Vector2(0.6, 0.6)
-script = ExtResource("4_j5wjh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy1" unique_id=1414578362]
-shape = SubResource("RectangleShape2D_hbghi")
-
-[node name="Polygon2D" type="Polygon2D" parent="Maze/Enemy1" unique_id=825583340]
-visible = false
-
-[node name="EnemyNode1" type="Node2D" parent="Maze/Enemy1" unique_id=36133780]
-unique_name_in_owner = true
-scale = Vector2(1.5, 1.5)
-
-[node name="EnemySprite1" type="Sprite2D" parent="Maze/Enemy1/EnemyNode1" unique_id=614114588]
-unique_name_in_owner = true
-texture = ExtResource("7_l4dfk")
-hframes = 4
-
-[node name="EnemyAnimationPlayer1" type="AnimationPlayer" parent="Maze/Enemy1/EnemyNode1" unique_id=2073034407]
-unique_name_in_owner = true
-libraries/ = SubResource("AnimationLibrary_4osd1")
 
 [node name="Enemy2" type="CharacterBody2D" parent="Maze" unique_id=1425965841]
 z_index = 10

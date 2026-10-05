@@ -51,7 +51,6 @@ func _input(event):
 
 	else:
 		return
-
 	slide(direction)
 	moved.emit(direction)
 
@@ -81,7 +80,6 @@ func slide(direction: Vector2i):
 	target_position = maze.cell_to_world(
 		grid_position
 	)
-
 	moving = true
 
 	if has_node("Node2D/AnimationPlayer"):

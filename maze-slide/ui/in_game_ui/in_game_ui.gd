@@ -160,8 +160,8 @@ func _transition_to_layout(transition_to):
 	is_switching_page = false
 
 
-func _get_page(name):
-	return pages.filter(func(page): return page.name == name).front()
+func _get_page(name_of_page):
+	return pages.filter(func(page): return page.name == name_of_page).front()
 
 
 func _device_changed(device: String, device_index: int = -1):
