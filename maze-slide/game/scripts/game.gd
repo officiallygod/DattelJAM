@@ -30,8 +30,8 @@ func _ready():
 	maze.setup(LEVEL)
 	center_maze()
 	
-	#if has_node("Maze/Goal/GoalNode/GoalAnimationPlayer"):
-		#$Maze/Goal/GoalNode/GoalAnimationPlayer.play("portal")
+	if has_node("Maze/Goal/GoalNode/GoalAnimationPlayer"):
+		$Maze/Goal/GoalNode/GoalAnimationPlayer.play("portal")
 
 	player.setup(LEVEL.PLAYER_START, maze)
 	goal.setup(LEVEL.GOAL_POSITION, maze)
@@ -54,15 +54,6 @@ func center_maze():
 
 	maze.position = (viewport_size - maze_size) / 2.0
 
-
-#func find_enemies():
-	#enemies.clear()
-#
-	#for child in maze.get_children():
-		#if child is CharacterBody2D and child.name.begins_with("Enemy"):
-			#enemies.append(child)
-
-
 func setup_enemies():
 	var starts = LEVEL.ENEMY_STARTS
 	for e in enemies:
@@ -74,25 +65,6 @@ func setup_enemies():
 		maze.add_child(enemy_to_place)
 		enemy_to_place.setup(starts[i], maze)
 		enemies.append(enemy_to_place)
-	#if "ENEMY_STARTS" in LEVEL:
-		#var starts = LEVEL.ENEMY_STARTS
-#
-		#for i in range(enemies.size()):
-			#if i < starts.size():
-				#enemies[i].visible = true
-				#enemies[i].setup(starts[i], maze)
-			#else:
-				#enemies[i].visible = false
-				#enemies[i].stop_movement()
-	#else:
-		#if enemies.size() > 0:
-			#enemies[0].visible = true
-			#enemies[0].setup(LEVEL.ENEMY_START, maze)
-#
-		#for i in range(1, enemies.size()):
-			#enemies[i].visible = false
-			#enemies[i].stop_movement()
-
 
 func _on_player_moved(direction: Vector2i):
 	if game_over or turn_in_progress:
@@ -167,12 +139,8 @@ func move_enemies_horizontal(direction: int):
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
-				#if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
-					#$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
-				#if has_node("Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2"):
-					#$Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2.play("enemy_walking2")
-				#if has_node("Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3"):
-					#$Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3.play("enemy_walking3")
+				if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
+					$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
 
 
 func move_enemies_vertical(direction: int):
@@ -215,12 +183,8 @@ func move_enemies_vertical(direction: int):
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
-				#if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
-					#$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
-				#if has_node("Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2"):
-					#$Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2.play("enemy_walking2")
-				#if has_node("Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3"):
-					#$Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3.play("enemy_walking3")
+				if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
+					$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
 
 
 func wait_for_all_movement():
@@ -246,7 +210,6 @@ func _physics_process(_delta):
 		return
 
 	check_player_goal()
-
 
 func check_player_enemy_collisions():
 	for enemy in enemies:
@@ -336,12 +299,8 @@ func die():
 		if enemy.visible:
 			enemy.stop_movement()
 			
-	#if has_node("Maze/Enemy1/EnemyNode/EnemyAnimationPlayer"):
-		#$Maze/Enemy1/EnemyNode/EnemyAnimationPlayer.stop()
-	#if has_node("Maze/Enemy2/EnemyNode/EnemyAnimationPlayer"):
-		#$Maze/Enemy2/EnemyNode/EnemyAnimationPlayer.stop()
-	#if has_node("Maze/Enemy3/EnemyNode/EnemyAnimationPlayer"):
-		#$Maze/Enemy3/EnemyNode/EnemyAnimationPlayer.stop()
+	if has_node("Maze/Enemy1/EnemyNode/EnemyAnimationPlayer"):
+		$Maze/Enemy1/EnemyNode/EnemyAnimationPlayer.stop()
 	print("YOU DIED!")
 
 	await get_tree().create_timer(0.8).timeout

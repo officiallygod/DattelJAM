@@ -5,9 +5,7 @@
 [ext_resource type="Script" uid="uid://beqfjwbdfkbef" path="res://game/scripts/maze.gd" id="2_ryrav"]
 [ext_resource type="Script" uid="uid://cxiv181xwkm4d" path="res://game/scripts/player.gd" id="3_eow3j"]
 [ext_resource type="Texture2D" uid="uid://dgs5anus7a3og" path="res://assets/Sprites/Sprite-0002.png" id="4_gy5jl"]
-[ext_resource type="Script" uid="uid://bve4bdflpins7" path="res://game/scripts/enemy.gd" id="4_j5wjh"]
 [ext_resource type="Script" uid="uid://guw3ip6s7d3o" path="res://game/scripts/goal.gd" id="5_vef74"]
-[ext_resource type="Texture2D" uid="uid://c83bg00ogt7te" path="res://assets/Sprites/Sprite-0003.png" id="7_l4dfk"]
 [ext_resource type="Texture2D" uid="uid://dfs3rdoiyssgp" path="res://assets/Sprites/door_standard_closed.png" id="7_ru4j2"]
 [ext_resource type="PackedScene" uid="uid://dxoqdtw8timm1" path="res://game/scenes/enemy.tscn" id="8_nw8cr"]
 [ext_resource type="FontFile" uid="uid://djyo8bpsc6303" path="res://ui/fonts/Sniglet-ExtraBold.ttf" id="9_4osd1"]
@@ -26,28 +24,6 @@ size = Vector2(52, 52)
 
 [sub_resource type="Animation" id="Animation_l4dfk"]
 length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%EnemySprite2:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(3, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("%EnemySprite3:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(3, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
 
 [sub_resource type="Animation" id="Animation_og0sj"]
 resource_name = "enemy_walking"
@@ -68,32 +44,10 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_4osd1"]
 resource_name = "enemy_walking2"
 loop_mode = 1
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%EnemySprite2:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 3, -0.12666667, -0.5, 0, 0),
-"times": PackedFloat32Array(0, 0.76)
-}
 
 [sub_resource type="Animation" id="Animation_ru4j2"]
 resource_name = "enemy_walking3"
 length = 0.76666665
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%EnemySprite3:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 3, -0.11666667, -0.5, 0, 0),
-"times": PackedFloat32Array(0, 0.7)
-}
 
 [sub_resource type="Animation" id="Animation_gy5jl"]
 resource_name = "sheep_walking"
@@ -218,56 +172,6 @@ libraries/ = SubResource("AnimationLibrary_2nnov")
 
 [node name="Enemy1" parent="Maze" unique_id=1962944725 instance=ExtResource("8_nw8cr")]
 position = Vector2(30, 30)
-
-[node name="Enemy2" type="CharacterBody2D" parent="Maze" unique_id=1425965841]
-z_index = 10
-position = Vector2(30, 30)
-scale = Vector2(0.6, 0.6)
-script = ExtResource("4_j5wjh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy2" unique_id=1571204367]
-shape = SubResource("RectangleShape2D_hbghi")
-
-[node name="Polygon2D" type="Polygon2D" parent="Maze/Enemy2" unique_id=831981410]
-
-[node name="EnemyNode2" type="Node2D" parent="Maze/Enemy2" unique_id=1354461885]
-unique_name_in_owner = true
-scale = Vector2(1.5, 1.5)
-
-[node name="EnemySprite2" type="Sprite2D" parent="Maze/Enemy2/EnemyNode2" unique_id=948443904]
-unique_name_in_owner = true
-texture = ExtResource("7_l4dfk")
-hframes = 4
-frame = 3
-
-[node name="EnemyAnimationPlayer2" type="AnimationPlayer" parent="Maze/Enemy2/EnemyNode2" unique_id=1035288851]
-unique_name_in_owner = true
-libraries/ = SubResource("AnimationLibrary_4osd1")
-
-[node name="Enemy3" type="CharacterBody2D" parent="Maze" unique_id=1512825776]
-z_index = 10
-position = Vector2(30, 30)
-scale = Vector2(0.6, 0.6)
-script = ExtResource("4_j5wjh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Enemy3" unique_id=251921400]
-shape = SubResource("RectangleShape2D_hbghi")
-
-[node name="Polygon2D" type="Polygon2D" parent="Maze/Enemy3" unique_id=681121545]
-
-[node name="EnemyNode3" type="Node2D" parent="Maze/Enemy3" unique_id=123666012]
-unique_name_in_owner = true
-scale = Vector2(1.5, 1.5)
-
-[node name="EnemySprite3" type="Sprite2D" parent="Maze/Enemy3/EnemyNode3" unique_id=1338864534]
-unique_name_in_owner = true
-texture = ExtResource("7_l4dfk")
-hframes = 4
-frame = 3
-
-[node name="EnemyAnimationPlayer3" type="AnimationPlayer" parent="Maze/Enemy3/EnemyNode3" unique_id=1490493331]
-unique_name_in_owner = true
-libraries/ = SubResource("AnimationLibrary_4osd1")
 
 [node name="Sounds" type="Node2D" parent="." unique_id=166624707]
 

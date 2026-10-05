@@ -17,13 +17,8 @@ func setup(start_cell: Vector2i, maze_node):
 	target_position = position
 
 	moving = false
-	#if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-		#$EnemyNode1/EnemyAnimationPlayer1.stop()
-	#if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-		#$EnemyNode2/EnemyAnimationPlayer2.stop()
-	#if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-		#$EnemyNode3/EnemyAnimationPlayer3.stop()
-		
+	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
+		$EnemyNode1/EnemyAnimationPlayer1.stop()
 
 	queue_redraw()
 
@@ -81,7 +76,8 @@ func move_in_direction(
 func _physics_process(delta):
 	if not moving:
 		return
-
+	if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
+		$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
 	position = position.move_toward(
 		target_position,
 		SPEED * delta
@@ -91,34 +87,14 @@ func _physics_process(delta):
 		position = target_position
 		moving = false
 		
-		#if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-			#$EnemyNode1/EnemyAnimationPlayer1.stop()
-		#if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-			#$EnemyNode2/EnemyAnimationPlayer2.stop()
-		#if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-			#$EnemyNode3/EnemyAnimationPlayer3.stop()
+		if has_node("EnemyNode1/EnemyAnimationPlayer1"):
+			$EnemyNode1/EnemyAnimationPlayer1.stop()
 
 
 func stop_movement():
 	moving = false
 	
-	#if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-		#$EnemyNode1/EnemyAnimationPlayer1.stop()
-	#if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-		#$EnemyNode2/EnemyAnimationPlayer2.stop()
-	#if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-		#$EnemyNode3/EnemyAnimationPlayer3.stop()
+	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
+		$EnemyNode1/EnemyAnimationPlayer1.stop()
 		
 	target_position = position
-
-
-#func _draw():
-#	draw_rect(
-#		Rect2(
-#			-ENEMY_SIZE / 2.0,
-#			-ENEMY_SIZE / 2.0,
-#			ENEMY_SIZE,
-#			ENEMY_SIZE
-#		),
-#		Color.RED
-#	)
