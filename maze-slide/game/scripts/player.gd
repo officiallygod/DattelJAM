@@ -34,37 +34,32 @@ func set_input_enabled(enabled: bool):
 func _input(event):
 	if moving or not input_enabled:
 		return
-
+	var animation_to_play = ""; 
 	var direction = Vector2i.ZERO
 
 	if event.is_action_pressed("ui_up"):
 		direction = Vector2i(0, -1)
-		if has_node("Node2D/AnimationPlayer"):
-			$Node2D/AnimationPlayer.play("player_walking_up")
-		
+		animation_to_play = "player_walking_up"
 
 	elif event.is_action_pressed("ui_down"):
 		direction = Vector2i(0, 1)
-		if has_node("Node2D/AnimationPlayer"):
-			$Node2D/AnimationPlayer.play("player_walking_down")
+		animation_to_play = "player_walking_down"
 
 	elif event.is_action_pressed("ui_left"):
 		direction = Vector2i(-1, 0)
-		if has_node("Node2D/AnimationPlayer"):
-			$Node2D/AnimationPlayer.play("player_walking_left")
+		animation_to_play = "player_walking_left"
 
 	elif event.is_action_pressed("ui_right"):
 		direction = Vector2i(1, 0)
-		if has_node("Node2D/AnimationPlayer"):
-			$Node2D/AnimationPlayer.play("player_walking_right")
+		animation_to_play = "player_walking_right"
 
 	else:
 		return
-	slide(direction)
+	slide(direction, animation_to_play)
 	moved.emit(direction)
 
 
-func slide(direction: Vector2i):
+func slide(direction: Vector2i, animation_to_play: String):
 	var current = grid_position
 
 	while true:
@@ -90,6 +85,10 @@ func slide(direction: Vector2i):
 		grid_position
 	)
 	moving = true
+	if has_node("Node2D/AnimationPlayer"):
+		$Node2D/AnimationPlayer.play(animation_to_play)
+	
+	
 
 func _physics_process(delta):
 	if not moving:
