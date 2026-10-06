@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var animation_player = $EnemyNode1/EnemyAnimationPlayer1
+
 const ENEMY_SIZE = 44.0
 const SPEED = 300.0
 
@@ -17,15 +19,7 @@ func setup(start_cell: Vector2i, maze_node):
 	target_position = position
 
 	moving = false
-	
-	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-		$EnemyNode1/EnemyAnimationPlayer1.stop()
-	if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-		$EnemyNode2/EnemyAnimationPlayer2.stop()
-	if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-		$EnemyNode3/EnemyAnimationPlayer3.stop()
-		
-
+	animation_player.stop()
 	queue_redraw()
 
 
@@ -82,7 +76,6 @@ func move_in_direction(
 func _physics_process(delta):
 	if not moving:
 		return
-
 	position = position.move_toward(
 		target_position,
 		SPEED * delta
@@ -91,35 +84,19 @@ func _physics_process(delta):
 	if position.distance_to(target_position) < 0.1:
 		position = target_position
 		moving = false
-		
-		if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-			$EnemyNode1/EnemyAnimationPlayer1.stop()
-		if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-			$EnemyNode2/EnemyAnimationPlayer2.stop()
-		if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-			$EnemyNode3/EnemyAnimationPlayer3.stop()
-
+		animation_player.stop()
 
 func stop_movement():
 	moving = false
-	
-	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-		$EnemyNode1/EnemyAnimationPlayer1.stop()
-	if has_node("EnemyNode2/EnemyAnimationPlayer2"):
-		$EnemyNode2/EnemyAnimationPlayer2.stop()
-	if has_node("EnemyNode3/EnemyAnimationPlayer3"):
-		$EnemyNode3/EnemyAnimationPlayer3.stop()
-		
+	animation_player.stop()
 	target_position = position
-
-
-#func _draw():
-#	draw_rect(
-#		Rect2(
-#			-ENEMY_SIZE / 2.0,
-#			-ENEMY_SIZE / 2.0,
-#			ENEMY_SIZE,
-#			ENEMY_SIZE
-#		),
-#		Color.RED
-#	)
+	
+func play_walking_animation(direction: int, walking_horizontally: bool):
+	if (walking_horizontally and direction > 0):
+		animation_player.play("enemy_walking_right")
+	elif(walking_horizontally and direction < 0):
+		animation_player.play("enemy_walking_left")
+	elif (!walking_horizontally and direction < 0):
+		animation_player.play("enemy_walking_up")
+	elif(!walking_horizontally and direction > 0):
+		animation_player.play("enemy_walking_down")

@@ -39,19 +39,27 @@ func _input(event):
 
 	if event.is_action_pressed("ui_up"):
 		direction = Vector2i(0, -1)
+		if has_node("Node2D/AnimationPlayer"):
+			$Node2D/AnimationPlayer.play("player_walking_up")
+		
 
 	elif event.is_action_pressed("ui_down"):
 		direction = Vector2i(0, 1)
+		if has_node("Node2D/AnimationPlayer"):
+			$Node2D/AnimationPlayer.play("player_walking_down")
 
 	elif event.is_action_pressed("ui_left"):
 		direction = Vector2i(-1, 0)
+		if has_node("Node2D/AnimationPlayer"):
+			$Node2D/AnimationPlayer.play("player_walking_left")
 
 	elif event.is_action_pressed("ui_right"):
 		direction = Vector2i(1, 0)
+		if has_node("Node2D/AnimationPlayer"):
+			$Node2D/AnimationPlayer.play("player_walking_right")
 
 	else:
 		return
-
 	slide(direction)
 	moved.emit(direction)
 
@@ -81,12 +89,7 @@ func slide(direction: Vector2i):
 	target_position = maze.cell_to_world(
 		grid_position
 	)
-
 	moving = true
-
-	if has_node("Node2D/AnimationPlayer"):
-		$Node2D/AnimationPlayer.play("sheep_walking")
-
 
 func _physics_process(delta):
 	if not moving:

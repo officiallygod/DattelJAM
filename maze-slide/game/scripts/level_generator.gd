@@ -1,6 +1,6 @@
 class_name LevelGenerator
 extends RefCounted
-const LevelData = preload("res://levels/leveldata.gd")
+const LEVEL_DATA = preload("res://levels/leveldata.gd")
 const DIRECTIONS: Dictionary = {
 	"UP": Vector2i.UP, "DOWN": Vector2i.DOWN, "LEFT": Vector2i.LEFT, "RIGHT": Vector2i.RIGHT
 }
@@ -18,7 +18,6 @@ class PuzzleState:
 static func create_matrix(n:int, m:int) -> Array:
 	var matrix: Array = []
 	var number_rows = n
-	var number_columns = m
 	var first_row: Array = []
 	first_row.resize(m)
 	first_row.fill(1)
@@ -195,7 +194,7 @@ static func createNode(size: int, horizontal_walls: Array, vertical_walls: Array
 	level_node.set_meta("VERTICAL_WALLS", vertical_walls)
 	level_node.set_meta("GOAL_POSITION", goal)
 	level_node.set_meta("PLAYER_START", player_start)
-	level_node.set_meta("ENEMY_START", player_start)
+	level_node.set_meta("ENEMY_START", enemy_start)
 	level_node.set_meta("GRID_SIZE", size)
 	level_node.set_meta("CELL_SIZE", 60)
 	return level_node
@@ -206,7 +205,7 @@ static func createNodeFile(size: int, horizontal_walls: Array, vertical_walls: A
 	level_node.HORIZONTAL_WALLS = horizontal_walls
 	level_node.VERTICAL_WALLS = vertical_walls
 	level_node.PLAYER_START = player_start
-	level_node.ENEMY_START = enemy_start
+	level_node.ENEMY_STARTS = [enemy_start]
 	level_node.GOAL_POSITION = goal
 	return level_node
 	

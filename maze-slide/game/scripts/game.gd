@@ -11,6 +11,7 @@ const PLAYER_SIZE = 44.0
 const ENEMY_SIZE = 44.0
 const LevelGen = preload("res://game/scripts/level_generator.gd")
 const background_music = preload("res://assets/audios/mixkit-infinity-440.mp3")
+const enemy_scene: PackedScene = preload("res://game/scenes/enemy.tscn")
 
 
 var LEVEL
@@ -29,21 +30,18 @@ func _ready():
 	maze.setup(LEVEL)
 	center_maze()
 	
-	#if has_node("Maze/Goal/GoalNode/GoalAnimationPlayer"):
-		#$Maze/Goal/GoalNode/GoalAnimationPlayer.play("portal")
+	if has_node("Maze/Goal/GoalNode/GoalAnimationPlayer"):
+		$Maze/Goal/GoalNode/GoalAnimationPlayer.play("portal")
 
 	player.setup(LEVEL.PLAYER_START, maze)
 	goal.setup(LEVEL.GOAL_POSITION, maze)
 
-	find_enemies()
 	setup_enemies()
 
 	player.moved.connect(_on_player_moved)
 	setup_popup_connections()
 	setup_popup_connections2()
 	
-
-
 func center_maze():
 	var viewport_size = get_viewport_rect().size
 	var maze_size = Vector2(
@@ -53,36 +51,17 @@ func center_maze():
 
 	maze.position = (viewport_size - maze_size) / 2.0
 
-
-func find_enemies():
-	enemies.clear()
-
-	for child in maze.get_children():
-		if child is CharacterBody2D and child.name.begins_with("Enemy"):
-			enemies.append(child)
-
-
 func setup_enemies():
-
-	if "ENEMY_STARTS" in LEVEL:
-		var starts = LEVEL.ENEMY_STARTS
-
-		for i in range(enemies.size()):
-			if i < starts.size():
-				enemies[i].visible = true
-				enemies[i].setup(starts[i], maze)
-			else:
-				enemies[i].visible = false
-				enemies[i].stop_movement()
-	else:
-		if enemies.size() > 0:
-			enemies[0].visible = true
-			enemies[0].setup(LEVEL.ENEMY_START, maze)
-
-		for i in range(1, enemies.size()):
-			enemies[i].visible = false
-			enemies[i].stop_movement()
-
+	var starts = LEVEL.ENEMY_STARTS
+	for e in enemies:
+		e.queue_free()
+	enemies.clear()
+	for i in range(starts.size()):
+		var enemy_to_place = enemy_scene.instantiate()
+		enemy_to_place.visible = true
+		maze.add_child(enemy_to_place)
+		enemy_to_place.setup(starts[i], maze)
+		enemies.append(enemy_to_place)
 
 func _on_player_moved(direction: Vector2i):
 	if game_over or turn_in_progress:
@@ -157,12 +136,8 @@ func move_enemies_horizontal(direction: int):
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
-				if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
-					$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
-				if has_node("Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2"):
-					$Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2.play("enemy_walking2")
-				if has_node("Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3"):
-					$Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3.play("enemy_walking3")
+				enemy.play_walking_animation(direction, true)
+					#$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking_right")
 
 
 func move_enemies_vertical(direction: int):
@@ -205,12 +180,7 @@ func move_enemies_vertical(direction: int):
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
-				if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
-					$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
-				if has_node("Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2"):
-					$Maze/Enemy2/EnemyNode2/EnemyAnimationPlayer2.play("enemy_walking2")
-				if has_node("Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3"):
-					$Maze/Enemy3/EnemyNode3/EnemyAnimationPlayer3.play("enemy_walking3")
+				enemy.play_walking_animation(direction, false)
 
 
 func wait_for_all_movement():
@@ -236,7 +206,6 @@ func _physics_process(_delta):
 		return
 
 	check_player_goal()
-
 
 func check_player_enemy_collisions():
 	for enemy in enemies:
@@ -328,10 +297,6 @@ func die():
 			
 	if has_node("Maze/Enemy1/EnemyNode/EnemyAnimationPlayer"):
 		$Maze/Enemy1/EnemyNode/EnemyAnimationPlayer.stop()
-	if has_node("Maze/Enemy2/EnemyNode/EnemyAnimationPlayer"):
-		$Maze/Enemy2/EnemyNode/EnemyAnimationPlayer.stop()
-	if has_node("Maze/Enemy3/EnemyNode/EnemyAnimationPlayer"):
-		$Maze/Enemy3/EnemyNode/EnemyAnimationPlayer.stop()
 	print("YOU DIED!")
 
 	await get_tree().create_timer(0.8).timeout

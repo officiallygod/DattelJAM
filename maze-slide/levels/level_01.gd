@@ -15,7 +15,7 @@ const CELL_SIZE = 60
 
 const PLAYER_START = Vector2i(1, 2)
 const ENEMY_STARTS = [
-	Vector2i(1, 0),
+	Vector2i(1, 0)
 ]
 
 # ==========================================
