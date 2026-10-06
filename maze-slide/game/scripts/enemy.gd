@@ -19,9 +19,7 @@ func setup(start_cell: Vector2i, maze_node):
 	target_position = position
 
 	moving = false
-	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-		$EnemyNode1/EnemyAnimationPlayer1.stop()
-
+	animation_player.stop()
 	queue_redraw()
 
 
@@ -86,17 +84,11 @@ func _physics_process(delta):
 	if position.distance_to(target_position) < 0.1:
 		position = target_position
 		moving = false
-		
-		if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-			$EnemyNode1/EnemyAnimationPlayer1.stop()
-
+		animation_player.stop()
 
 func stop_movement():
 	moving = false
-	
-	if has_node("EnemyNode1/EnemyAnimationPlayer1"):
-		$EnemyNode1/EnemyAnimationPlayer1.stop()
-		
+	animation_player.stop()
 	target_position = position
 	
 func play_walking_animation(direction: int, walking_horizontally: bool):
