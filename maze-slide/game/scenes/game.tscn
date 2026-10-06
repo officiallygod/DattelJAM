@@ -37,33 +37,9 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_og0sj"]
-resource_name = "enemy_walking"
-length = 0.33333334
-loop_mode = 1
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../Enemy1/EnemyNode1/EnemySprite1:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 3, -0.16, -0.5, 0, 0),
-"times": PackedFloat32Array(0, 0.23333335)
-}
-
-[sub_resource type="Animation" id="Animation_4osd1"]
-resource_name = "enemy_walking2"
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_ru4j2"]
-resource_name = "enemy_walking3"
-length = 0.76666665
-
 [sub_resource type="Animation" id="Animation_0xtou"]
 resource_name = "player_walking_down"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -80,7 +56,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_avpn4"]
 resource_name = "player_walking_left"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -97,7 +73,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_2nnov"]
 resource_name = "player_walking_right"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -114,7 +90,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_nw8cr"]
 resource_name = "player_walking_up"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -129,34 +105,13 @@ tracks/0/keys = {
 "values": [8, 9, 10, 11]
 }
 
-[sub_resource type="Animation" id="Animation_gy5jl"]
-resource_name = "sheep_walking"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 0, 3]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4osd1"]
 _data = {
 &"RESET": SubResource("Animation_l4dfk"),
-&"enemy_walking": SubResource("Animation_og0sj"),
-&"enemy_walking2": SubResource("Animation_4osd1"),
-&"enemy_walking3": SubResource("Animation_ru4j2"),
 &"player_walking_down": SubResource("Animation_0xtou"),
 &"player_walking_left": SubResource("Animation_avpn4"),
 &"player_walking_right": SubResource("Animation_2nnov"),
-&"player_walking_up": SubResource("Animation_nw8cr"),
-&"sheep_walking": SubResource("Animation_gy5jl")
+&"player_walking_up": SubResource("Animation_nw8cr")
 }
 
 [sub_resource type="Animation" id="Animation_bbyh4"]
