@@ -36,15 +36,12 @@ func _ready():
 	player.setup(LEVEL.PLAYER_START, maze)
 	goal.setup(LEVEL.GOAL_POSITION, maze)
 
-	#find_enemies()
 	setup_enemies()
 
 	player.moved.connect(_on_player_moved)
 	setup_popup_connections()
 	setup_popup_connections2()
 	
-
-
 func center_maze():
 	var viewport_size = get_viewport_rect().size
 	var maze_size = Vector2(
@@ -139,8 +136,8 @@ func move_enemies_horizontal(direction: int):
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
-				if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
-					$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
+				enemy.play_walking_animation(direction, true)
+					#$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking_right")
 
 
 func move_enemies_vertical(direction: int):
@@ -183,8 +180,7 @@ func move_enemies_vertical(direction: int):
 				enemy.grid_position = destination
 				enemy.target_position = maze.cell_to_world(destination)
 				enemy.moving = true
-				if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
-					$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
+				enemy.play_walking_animation(direction, false)
 
 
 func wait_for_all_movement():

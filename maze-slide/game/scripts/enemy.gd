@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var animation_player = $EnemyNode1/EnemyAnimationPlayer1
+
 const ENEMY_SIZE = 44.0
 const SPEED = 300.0
 
@@ -76,8 +78,6 @@ func move_in_direction(
 func _physics_process(delta):
 	if not moving:
 		return
-	if has_node("Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1"):
-		$Maze/Enemy1/EnemyNode1/EnemyAnimationPlayer1.play("enemy_walking")
 	position = position.move_toward(
 		target_position,
 		SPEED * delta
@@ -98,3 +98,13 @@ func stop_movement():
 		$EnemyNode1/EnemyAnimationPlayer1.stop()
 		
 	target_position = position
+	
+func play_walking_animation(direction: int, walking_horizontally: bool):
+	if (walking_horizontally and direction > 0):
+		animation_player.play("enemy_walking_right")
+	elif(walking_horizontally and direction < 0):
+		animation_player.play("enemy_walking_left")
+	elif (!walking_horizontally and direction < 0):
+		animation_player.play("enemy_walking_up")
+	elif(!walking_horizontally and direction > 0):
+		animation_player.play("enemy_walking_down")
