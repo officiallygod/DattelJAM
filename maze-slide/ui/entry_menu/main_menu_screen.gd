@@ -18,9 +18,11 @@ extends Node
 @onready var level_list = %LevelList
 @onready var back_button = %BackButton
 @onready var random_level_button = %RandomLevelButton
+@onready var level_editor_button = %LevelEditorButton
 
 
 func _ready():
+	%LevelEditor.visible = false
 	_update_main_menu_buttons()
 
 	var focus_first = main_menu_screen.get_node("FocusFirst")
@@ -222,9 +224,12 @@ func _update_main_menu_buttons():
 	levels_button.focus_neighbor_bottom = random_level_button.get_path()
 
 	random_level_button.focus_neighbor_top = levels_button.get_path()
-	random_level_button.focus_neighbor_bottom = quit_button.get_path()
+	random_level_button.focus_neighbor_bottom = level_editor_button.get_path()
+	
+	level_editor_button.focus_neighbor_top = random_level_button.get_path()
+	level_editor_button.focus_neighbor_bottom = quit_button.get_path()
 
-	quit_button.focus_neighbor_top = random_level_button.get_path()
+	quit_button.focus_neighbor_top = level_editor_button.get_path()
 	quit_button.focus_neighbor_bottom = new_game_button.get_path()
 
 
@@ -249,3 +254,12 @@ func _on_random_level_pressed() -> void:
 
 	GameManager.set_current_game(new_game["id"])
 	GameManager.load_scene(first_scene_new_game)
+
+
+func _on_level_editor_button_pressed() -> void:
+	%LevelEditor.visible = true
+	escape_to_return.can_return = false
+	GuiTransitions.go_to("LevelEditor")
+	await GuiTransitions.show_completed
+
+	escape_to_return.can_return = true

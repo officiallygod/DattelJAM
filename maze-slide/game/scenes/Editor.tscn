@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://y6kqmmtcfnw4"]
 
+[ext_resource type="Script" uid="uid://d3i4qik1cmapg" path="res://game/scenes/editor.gd" id="1_k3jy1"]
+
 [node name="Editor" type="Node2D" unique_id=328365260]
+script = ExtResource("1_k3jy1")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=136226381]
 

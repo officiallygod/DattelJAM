@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dlym47ojq04o7" path="res://ui/audio/ui_audio_effects_attacher.tscn" id="8_e8svh"]
 [ext_resource type="Texture2D" uid="uid://cb4ktd51yybin" path="res://assets/Sprites/room_4.png" id="8_jfgbl"]
 [ext_resource type="Texture2D" uid="uid://m3wobw2f3j7d" path="res://assets/Sprites/room_1.png" id="9_j7kqt"]
+[ext_resource type="Script" uid="uid://bevfmq34dxrj" path="res://ui/entry_menu/level_editor.gd" id="13_cg56n"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7epj0"]
 texture = ExtResource("4_7epj0")
@@ -84,7 +85,8 @@ controls_in_sequence = [NodePath("../Background/HBoxContainer/VBoxContainer/HBox
 
 [node name="Background" type="PanelContainer" parent="CanvasLayer/MainMenu" unique_id=174323093]
 layout_mode = 0
-offset_right = 800.0
+offset_left = -1.0
+offset_right = 799.0
 offset_bottom = 600.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_7epj0")
 
@@ -163,6 +165,17 @@ theme_override_styles/hover = ExtResource("7_rdqd8")
 theme_override_styles/focus = ExtResource("7_rdqd8")
 text = "Random Level"
 
+[node name="LevelEditorButton" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=766356056 groups=["UIButtons"]]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../LoadGameButton")
+focus_next = NodePath("../LoadGameButton")
+theme = ExtResource("1_coyy4")
+theme_override_fonts/font = ExtResource("6_xbe0p")
+theme_override_styles/hover = ExtResource("7_rdqd8")
+theme_override_styles/focus = ExtResource("7_rdqd8")
+text = "Level Editor"
+
 [node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=406970802 groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
@@ -204,6 +217,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -475,6 +492,45 @@ Last line - it should stop when this line is at the middle
 fit_content = true
 scroll_active = false
 
+[node name="LevelEditor" type="Control" parent="CanvasLayer" unique_id=1093231796]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("13_cg56n")
+
+[node name="Panel" type="PanelContainer" parent="CanvasLayer/LevelEditor" unique_id=2133163614]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 149.0
+offset_right = 762.0
+offset_bottom = 719.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LevelEditor/Panel" unique_id=840612913]
+custom_minimum_size = Vector2(0, 1000)
+custom_maximum_size = Vector2(1000, 3000)
+layout_mode = 2
+
+[node name="CreateLevelButton" type="Button" parent="CanvasLayer/LevelEditor/Panel/VBoxContainer" unique_id=264423640]
+layout_mode = 2
+text = "Create new Level"
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/LevelEditor/Panel/VBoxContainer" unique_id=1311727204]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/LevelEditor/Panel/VBoxContainer" unique_id=598696238]
+custom_minimum_size = Vector2(700, 500)
+custom_maximum_size = Vector2(1000, 500)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LevelEditor/Panel/VBoxContainer/ScrollContainer" unique_id=1669451872]
+custom_minimum_size = Vector2(400, 50)
+custom_maximum_size = Vector2(400, 50)
+layout_mode = 2
+
 [node name="Transitions" type="Node" parent="." unique_id=1083567556]
 
 [node name="TransitionMainMenu" type="Node" parent="Transitions" unique_id=939234101]
@@ -517,6 +573,8 @@ root_path = NodePath("../CanvasLayer")
 [connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton" to="CanvasLayer/MainMenu" method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LevelsButton" to="CanvasLayer/MainMenu" method="_on_levels_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/RandomLevelButton" to="CanvasLayer/MainMenu" method="_on_random_level_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LevelEditorButton" to="CanvasLayer/MainMenu" method="_on_level_editor_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="CanvasLayer/MainMenu" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/Background/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="CanvasLayer/MainMenu" method="_on_credits_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/LevelSelect/BackButton" to="CanvasLayer/MainMenu" method="_on_back_button_pressed"]
+[connection signal="text_changed" from="CanvasLayer/LevelEditor/Panel/VBoxContainer/LineEdit" to="CanvasLayer/LevelEditor" method="_on_line_edit_text_changed"]
