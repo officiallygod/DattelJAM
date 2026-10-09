@@ -103,7 +103,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_71r32"]
 resource_name = "enemy_walking_down"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -120,7 +120,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_nrroi"]
 resource_name = "enemy_walking_left"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -137,7 +137,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_0cvah"]
 resource_name = "enemy_walking_right"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -154,7 +154,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_2vy0w"]
 resource_name = "enemy_walking_up"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -200,7 +200,6 @@ _data = {
 }
 
 [node name="Enemy1" type="CharacterBody2D" unique_id=1962944725]
-visible = false
 z_index = 10
 scale = Vector2(0.6, 0.6)
 script = ExtResource("1_nrroi")

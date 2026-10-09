@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cl2slsgximixo"]
+
+[sub_resource type="Curve" id="Curve_xcss6"]
+_data = [Vector2(0.047872342, 1), 0.0, 0.0, 0, 0, Vector2(0.5531915, 0.32584274), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="DeathParticles" type="Node2D" unique_id=1834871842]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=811210896]
+emitting = false
+amount = 20
+one_shot = true
+speed_scale = 0.52
+explosiveness = 1.0
+use_fixed_seed = true
+seed = 2755517134
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_xcss6")

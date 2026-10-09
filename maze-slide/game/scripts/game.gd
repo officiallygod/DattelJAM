@@ -298,6 +298,12 @@ func die():
 	if has_node("Maze/Enemy1/EnemyNode/EnemyAnimationPlayer"):
 		$Maze/Enemy1/EnemyNode/EnemyAnimationPlayer.stop()
 	print("YOU DIED!")
+	
+	if has_node("Maze/Player/DeathParticles/CPUParticles2D"):
+		$Maze/Player/DeathParticles/CPUParticles2D.emitting = true
+
+	if has_node("Maze/Player/Node2D/Sprite2D"):
+		$Maze/Player/Node2D/Sprite2D.visible = false
 
 	await get_tree().create_timer(0.8).timeout
 
@@ -357,6 +363,9 @@ func reset_level():
 
 	if has_node("GameUI/Controls/GameWonPopup"):
 		$GameUI/Controls/GameWonPopup.visible = false
+	
+	if has_node("Maze/Player/Node2D/Sprite2D"):
+		$Maze/Player/Node2D/Sprite2D.visible = true
 
 
 func show_level_won_popup():
