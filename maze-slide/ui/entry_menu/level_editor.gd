@@ -1,7 +1,8 @@
 extends Control
-@onready var search_bar: LineEdit = $Panel/VBoxContainer/LineEdit
-@onready var level_list: VBoxContainer = $Panel/VBoxContainer/ScrollContainer/VBoxContainer
-@onready var create_button: Button = $Panel/VBoxContainer/CreateLevelButton
+@onready var search_bar: LineEdit = $TextureRect/Panel/VBoxContainer/LineEditPanel/VBoxContainer/LineEdit
+@onready var level_list: VBoxContainer = $TextureRect/Panel/VBoxContainer/ScrollContainer/VBoxContainer
+@onready var create_button: Button = $TextureRect/Panel/VBoxContainer/CreateLevelButton
+const FONT = preload("res://ui/fonts/JetBrains_Mono/static/BlackOpsOne-Regular.ttf")
 const LEVELS_PATH: String = "user://levels/"
 var all_levels
 func _ready() -> void:
@@ -46,7 +47,7 @@ func populate_level_list(levels_to_display: Array[String]) -> void:
 		var button = Button.new()
 		button.text = level_name
 		button.alignment = HORIZONTAL_ALIGNMENT_CENTER
-		button.clip_text = true
+		button.add_theme_font_override("font", FONT)
 			
 		level_list.add_child(button)	
 
@@ -59,4 +60,3 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 	for button in level_list.get_children():
 		if button is Button:
 			button.visible = filter in button.text.to_lower()
-			print(button.visible)
