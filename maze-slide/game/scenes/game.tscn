@@ -50,7 +50,6 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2nnov"]
 _data = {
-&"RESET": SubResource("Animation_bbyh4"),
 &"portal": SubResource("Animation_ngn8n")
 }
 

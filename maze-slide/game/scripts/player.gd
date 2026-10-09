@@ -14,7 +14,6 @@ var moving = false
 var input_enabled = true
 var maze
 
-
 func setup(start_cell: Vector2i, maze_node):
 	grid_position = start_cell
 	maze = maze_node
@@ -27,7 +26,6 @@ func setup(start_cell: Vector2i, maze_node):
 
 	stop_animation()
 
-
 func set_input_enabled(enabled: bool):
 	input_enabled = enabled
 
@@ -35,7 +33,7 @@ func set_input_enabled(enabled: bool):
 func _input(event):
 	if moving or not input_enabled:
 		return
-
+	var animation_to_play = ""; 
 	var direction = Vector2i.ZERO
 
 	if event.is_action_pressed("ui_up"):
@@ -52,11 +50,11 @@ func _input(event):
 
 	else:
 		return
-	slide(direction)
+	slide(direction, animation_to_play)
 	moved.emit(direction)
 
 
-func slide(direction: Vector2i):
+func slide(direction: Vector2i, animation_to_play: String):
 	var current = grid_position
 
 	while true:
@@ -84,6 +82,10 @@ func slide(direction: Vector2i):
 		grid_position
 	)
 	moving = true
+	if has_node("Node2D/AnimationPlayer"):
+		$Node2D/AnimationPlayer.play(animation_to_play)
+	
+	
 
 func _physics_process(delta):
 	if not moving:

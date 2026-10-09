@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cx65lok51c1hk"]
+
+[node name="EditorMenu" type="Node2D" unique_id=1704889206]
+
+[node name="Panel" type="Panel" parent="." unique_id=105323855]
+offset_right = 40.0
+offset_bottom = 40.0
