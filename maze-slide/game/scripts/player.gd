@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var animation_player = $Node2D/AnimationPlayer
+
 signal moved(direction)
 
 const PLAYER_SIZE = 44.0
@@ -22,8 +24,7 @@ func setup(start_cell: Vector2i, maze_node):
 	moving = false
 	input_enabled = true
 
-	if has_node("Node2D/AnimationPlayer"):
-		$Node2D/AnimationPlayer.stop()
+	stop_animation()
 
 func set_input_enabled(enabled: bool):
 	input_enabled = enabled
@@ -37,19 +38,15 @@ func _input(event):
 
 	if event.is_action_pressed("ui_up"):
 		direction = Vector2i(0, -1)
-		animation_to_play = "player_walking_up"
 
 	elif event.is_action_pressed("ui_down"):
 		direction = Vector2i(0, 1)
-		animation_to_play = "player_walking_down"
 
 	elif event.is_action_pressed("ui_left"):
 		direction = Vector2i(-1, 0)
-		animation_to_play = "player_walking_left"
 
 	elif event.is_action_pressed("ui_right"):
 		direction = Vector2i(1, 0)
-		animation_to_play = "player_walking_right"
 
 	else:
 		return
@@ -77,6 +74,8 @@ func slide(direction: Vector2i, animation_to_play: String):
 	if current == grid_position:
 		return
 
+	play_walking_animation(direction)
+
 	grid_position = current
 
 	target_position = maze.cell_to_world(
@@ -100,14 +99,29 @@ func _physics_process(delta):
 	if position.distance_to(target_position) < 0.1:
 		position = target_position
 		moving = false
-
-		if has_node("Node2D/AnimationPlayer"):
-			$Node2D/AnimationPlayer.stop()
+		stop_animation()
 
 
 func stop_movement():
 	moving = false
+	animation_player.stop()
 	target_position = position
 
+func play_walking_animation(direction: Vector2i):
+	if has_node("running_particles/CPUParticles2D"):
+		$running_particles/CPUParticles2D.emitting = true
+	
 	if has_node("Node2D/AnimationPlayer"):
-		$Node2D/AnimationPlayer.stop()
+		if direction == Vector2i(0, -1):
+			$Node2D/AnimationPlayer.play("player_walking_up")
+		elif direction == Vector2i(0, 1):
+			$Node2D/AnimationPlayer.play("player_walking_down")
+		elif direction == Vector2i(-1, 0):
+			$Node2D/AnimationPlayer.play("player_walking_left")
+		elif direction == Vector2i(1, 0):
+			$Node2D/AnimationPlayer.play("player_walking_right")
+
+func stop_animation():
+	if has_node("running_particles/CPUParticles2D"):
+		$running_particles/CPUParticles2D.emitting = false
+		animation_player.stop()

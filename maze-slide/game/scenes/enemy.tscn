@@ -83,7 +83,6 @@ _data = {
 }
 
 [node name="Enemy1" type="CharacterBody2D" unique_id=1962944725]
-visible = false
 z_index = 10
 scale = Vector2(0.6, 0.6)
 script = ExtResource("1_nrroi")

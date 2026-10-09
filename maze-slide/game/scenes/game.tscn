@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://dwj4sgl25esm6" path="res://game/scripts/game.gd" id="1_7jktm"]
 [ext_resource type="Texture2D" uid="uid://j36qt3yit8e8" path="res://assets/Sprites/lab.png" id="2_ru4j2"]
 [ext_resource type="Script" uid="uid://beqfjwbdfkbef" path="res://game/scripts/maze.gd" id="2_ryrav"]
-[ext_resource type="Script" uid="uid://cxiv181xwkm4d" path="res://game/scripts/player.gd" id="3_eow3j"]
-[ext_resource type="Texture2D" uid="uid://ccfhc3qgvr53n" path="res://assets/Sprites/Dolly-Sheet2.png" id="5_2nnov"]
+[ext_resource type="PackedScene" uid="uid://bqds7yawo24bj" path="res://game/scenes/player.tscn" id="4_ngn8n"]
 [ext_resource type="Script" uid="uid://guw3ip6s7d3o" path="res://game/scripts/goal.gd" id="5_vef74"]
 [ext_resource type="Texture2D" uid="uid://dfs3rdoiyssgp" path="res://assets/Sprites/door_standard_closed.png" id="7_ru4j2"]
 [ext_resource type="PackedScene" uid="uid://dxoqdtw8timm1" path="res://game/scenes/enemy.tscn" id="8_nw8cr"]
@@ -19,99 +18,18 @@ texture = ExtResource("2_ru4j2")
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
-size = Vector2(52, 52)
-
-[sub_resource type="Animation" id="Animation_l4dfk"]
+[sub_resource type="Animation" id="Animation_bbyh4"]
 length = 0.001
-tracks/0/type = "value"
+tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%Sprite2D:frame")
+tracks/0/path = NodePath("GoalSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_0xtou"]
-resource_name = "player_walking_down"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [12, 13, 14, 15]
-}
-
-[sub_resource type="Animation" id="Animation_avpn4"]
-resource_name = "player_walking_left"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [4, 5, 6, 7]
-}
-
-[sub_resource type="Animation" id="Animation_2nnov"]
-resource_name = "player_walking_right"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_nw8cr"]
-resource_name = "player_walking_up"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [8, 9, 10, 11]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4osd1"]
-_data = {
-&"RESET": SubResource("Animation_l4dfk"),
-&"player_walking_down": SubResource("Animation_0xtou"),
-&"player_walking_left": SubResource("Animation_avpn4"),
-&"player_walking_right": SubResource("Animation_2nnov"),
-&"player_walking_up": SubResource("Animation_nw8cr")
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="Animation" id="Animation_ngn8n"]
@@ -158,29 +76,8 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_n50qa")
 z_index = 2
 script = ExtResource("2_ryrav")
 
-[node name="Player" type="CharacterBody2D" parent="Maze" unique_id=175239047]
-z_index = 10
+[node name="Player" parent="Maze" unique_id=1443701060 instance=ExtResource("4_ngn8n")]
 position = Vector2(30, 30)
-scale = Vector2(0.6, 0.6)
-script = ExtResource("3_eow3j")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Player" unique_id=1053072329]
-shape = SubResource("RectangleShape2D_hbghi")
-
-[node name="Polygon2D" type="Polygon2D" parent="Maze/Player" unique_id=534168008]
-visible = false
-
-[node name="Node2D" type="Node2D" parent="Maze/Player" unique_id=1962962697]
-unique_name_in_owner = true
-scale = Vector2(1.5, 1.5)
-
-[node name="Sprite2D" type="Sprite2D" parent="Maze/Player/Node2D" unique_id=776783357]
-unique_name_in_owner = true
-texture = ExtResource("5_2nnov")
-hframes = 16
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Maze/Player/Node2D" unique_id=824219194]
-libraries/ = SubResource("AnimationLibrary_4osd1")
 
 [node name="Goal" type="Node2D" parent="Maze" unique_id=200407685]
 script = ExtResource("5_vef74")
@@ -195,6 +92,7 @@ texture = ExtResource("7_ru4j2")
 libraries/ = SubResource("AnimationLibrary_2nnov")
 
 [node name="Enemy1" parent="Maze" unique_id=1962944725 instance=ExtResource("8_nw8cr")]
+visible = false
 position = Vector2(30, 30)
 
 [node name="Sounds" type="Node2D" parent="." unique_id=166624707]
