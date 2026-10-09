@@ -25,8 +25,7 @@ func setup(start_cell: Vector2i, maze_node):
 	moving = false
 	input_enabled = true
 
-	if has_node("Node2D/AnimationPlayer"):
-		$Node2D/AnimationPlayer.stop()
+	stop_animation()
 
 
 func set_input_enabled(enabled: bool):
@@ -98,7 +97,7 @@ func _physics_process(delta):
 	if position.distance_to(target_position) < 0.1:
 		position = target_position
 		moving = false
-		animation_player.stop()
+		stop_animation()
 
 
 func stop_movement():
@@ -107,6 +106,9 @@ func stop_movement():
 	target_position = position
 
 func play_walking_animation(direction: Vector2i):
+	if has_node("running_particles/CPUParticles2D"):
+		$running_particles/CPUParticles2D.emitting = true
+	
 	if has_node("Node2D/AnimationPlayer"):
 		if direction == Vector2i(0, -1):
 			$Node2D/AnimationPlayer.play("player_walking_up")
@@ -116,4 +118,8 @@ func play_walking_animation(direction: Vector2i):
 			$Node2D/AnimationPlayer.play("player_walking_left")
 		elif direction == Vector2i(1, 0):
 			$Node2D/AnimationPlayer.play("player_walking_right")
-	
+
+func stop_animation():
+	if has_node("running_particles/CPUParticles2D"):
+		$running_particles/CPUParticles2D.emitting = false
+		animation_player.stop()

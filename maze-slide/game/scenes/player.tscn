@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bqds7yawo24bj"]
 
 [ext_resource type="Script" uid="uid://cxiv181xwkm4d" path="res://game/scripts/player.gd" id="1_u5gyh"]
+[ext_resource type="PackedScene" uid="uid://gbewf8q5giy7" path="res://game/scenes/running_particles.tscn" id="2_lvpx6"]
 [ext_resource type="Texture2D" uid="uid://ccfhc3qgvr53n" path="res://assets/Sprites/Dolly-Sheet2.png" id="2_uy5fi"]
 [ext_resource type="PackedScene" uid="uid://cl2slsgximixo" path="res://game/scenes/death_particles.tscn" id="3_lvpx6"]
 
@@ -154,6 +155,9 @@ shape = SubResource("RectangleShape2D_hbghi")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=580144581]
 visible = false
+
+[node name="running_particles" parent="." unique_id=1687054002 instance=ExtResource("2_lvpx6")]
+position = Vector2(0, -9.536743e-07)
 
 [node name="Node2D" type="Node2D" parent="." unique_id=161510783]
 unique_name_in_owner = true

@@ -1,17 +1,21 @@
 [gd_scene format=3 uid="uid://gbewf8q5giy7"]
 
-[sub_resource type="Curve" id="Curve_xcss6"]
-_data = [Vector2(0.31914896, 1), 0.0, 0.0, 0, 0, Vector2(0.9787234, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+[ext_resource type="Texture2D" uid="uid://b16solb5tnpln" path="res://assets/Sprites/dust-vector-dust-cloud-cartoon-10999142.png" id="1_inisv"]
 
-[node name="Node2D" type="Node2D" unique_id=1687054002]
+[sub_resource type="Curve" id="Curve_xcss6"]
+_data = [Vector2(0, 0.55056185), 0.0, 0.0, 0, 0, Vector2(0.21808511, 1), 0.0, 0.0, 0, 0, Vector2(0.31914896, 1), 0.0, 0.0, 0, 0, Vector2(0.7234043, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="running_particles" type="Node2D" unique_id=1687054002]
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1818437530]
-modulate = Color(0.31061712, 0.31061712, 0.3106171, 1)
-amount = 1
+modulate = Color(0.5014065, 0.50140655, 0.50140643, 1)
+amount = 12
+texture = ExtResource("1_inisv")
+lifetime = 1.2
 gravity = Vector2(0, 0)
 angle_min = -720.0
 angle_max = 720.0
-scale_amount_min = 6.7
-scale_amount_max = 8.45
+scale_amount_min = 0.1
+scale_amount_max = 0.13
 scale_amount_curve = SubResource("Curve_xcss6")
