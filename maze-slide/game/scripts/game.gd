@@ -30,8 +30,8 @@ func _ready():
 	maze.setup(LEVEL)
 	center_maze()
 	
-	if has_node("Maze/Goal/GoalNode/GoalAnimationPlayer"):
-		$Maze/Goal/GoalNode/GoalAnimationPlayer.play("portal")
+	#if has_node("Maze/Goal/GoalNode/GoalAnimationPlayer"):
+	#	$Maze/Goal/GoalNode/GoalAnimationPlayer.play("portal")
 
 	player.setup(LEVEL.PLAYER_START, maze)
 	goal.setup(LEVEL.GOAL_POSITION, maze)

@@ -12,7 +12,6 @@ var moving = false
 var input_enabled = true
 var maze
 
-
 func setup(start_cell: Vector2i, maze_node):
 	grid_position = start_cell
 	maze = maze_node
@@ -25,7 +24,6 @@ func setup(start_cell: Vector2i, maze_node):
 
 	if has_node("Node2D/AnimationPlayer"):
 		$Node2D/AnimationPlayer.stop()
-
 
 func set_input_enabled(enabled: bool):
 	input_enabled = enabled
